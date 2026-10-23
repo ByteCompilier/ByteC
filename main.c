@@ -453,6 +453,23 @@ int main(int argc, char *argv[]){//main function
                 }
             }
         }
+        else if (strcmp(command_name, "NEG") == 0) {
+            if (arg1[0] == 'a') {
+                registres[0] = registres[0] - (registres[0] * 2);
+            }
+            else if (arg1[0] == 'b') {
+                registres[1] = registres[1] - (registres[1] * 2);
+            }
+            else if (arg1[0] == 'c') {
+                registres[2] = registres[2] - (registres[2] * 2);
+            }
+            else if (arg1[0] == 'd') {
+                registres[3] = registres[3] - (registres[3] * 2);
+            }
+            else if (arg1[0] == 'e') {
+                registres[4] = registres[4] - (registres[4] * 2);
+            }
+        }
         else if (strcmp(command_name, "INC") == 0) {
             if (arg1[0] == 'a') {
                 registres[0] += 1;
