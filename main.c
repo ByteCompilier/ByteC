@@ -11,6 +11,14 @@
 #define ARG2 50//our command second argument
 
 int main(int argc, char *argv[]){//main function
+    if (argc == 2 && strcmp(argv[1], "--version") == 0) {
+        printf("Version alpha 2!");
+        return 0;
+    }
+    else if (argc ==1) {
+        printf("Command line args error!\n");
+        return 1;
+    }
     char command[COMMAND_SIZE]; // our command buffer
     char command_name[COMMAND_SIZE];//our command name var
     char arg1[ARG1];
