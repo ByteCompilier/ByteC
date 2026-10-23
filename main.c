@@ -239,6 +239,113 @@ int main(int argc, char *argv[]){//main function
                 }
             }
         }
+        else if (strcmp(command_name, "SUB") == 0) {
+            if (arg1[0] == 'a') {
+                if (arg2[0] == 'a') {
+                    registres[0] -= registres[0];
+                }
+                else if (arg2[0] == 'b') {
+                    registres[0] -= registres[1];
+                }
+                else if (arg2[0] == 'c') {
+                    registres[0] -= registres[2];
+                }
+                else if (arg2[0] == 'd') {
+                    registres[0] -= registres[3];
+                }
+                else if (arg2[0] == 'e') {
+                    registres[0] -= registres[4];
+                }
+                else {
+                    int put = atoi(arg2);
+                    registres[0] -= put;
+                }
+            }
+            else if (arg1[0] == 'b') {
+                if (arg2[0] == 'a') {
+                    registres[1] -= registres[0];
+                }
+                else if (arg2[0] == 'b') {
+                    registres[1] -= registres[1];
+                }
+                else if (arg2[0] == 'c') {
+                    registres[1] += registres[1];
+                }
+                else if (arg2[0] == 'd') {
+                    registres[1] -= registres[2];
+                }
+                else if (arg2[0] == 'e') {
+                    registres[1] -= registres[3];
+                }
+                else {
+                    int put = atoi(arg2);
+                    registres[1] -= put;
+                }
+            }
+            else if (arg1[0] == 'c') {
+                if (arg2[0] == 'a') {
+                    registres[2] -= registres[0];
+                }
+                else if (arg2[0] == 'b') {
+                    registres[2] -= registres[1];
+                }
+                else if (arg2[0] == 'c') {
+                    registres[2] -= registres[2];
+                }
+                else if (arg2[0] == 'd') {
+                    registres[2] -= registres[3];
+                }
+                else if (arg2[0] == 'e') {
+                    registres[2] -= registres[4];
+                }
+                else {
+                    int put = atoi(arg2);
+                    registres[2] -= put;
+                }
+            }
+            else if (arg1[0] == 'd') {
+                if (arg2[0] == 'a') {
+                    registres[3] -= registres[0];
+                }
+                else if (arg2[0] == 'b') {
+                    registres[3] -= registres[1];
+                }
+                else if (arg2[0] == 'c') {
+                    registres[3] -= registres[2];
+                }
+                else if (arg2[0] == 'd') {
+                    registres[3] -= registres[3];
+                }
+                else if (arg2[0] == 'e') {
+                    registres[3] -= registres[4];
+                }
+                else {
+                    int put = atoi(arg2);
+                    registres[3] -= put;
+                }
+            }
+            else if (arg1[0] == 'e') {
+                if (arg2[0] == 'a') {
+                    registres[4] -= registres[0];
+                }
+                else if (arg2[0] == 'b') {
+                    registres[4] -= registres[1];
+                }
+                else if (arg2[0] == 'c') {
+                    registres[4] -= registres[2];
+                }
+                else if (arg2[0] == 'd') {
+                    registres[4] -= registres[3];
+                }
+                else if (arg2[0] == 'e') {
+                    registres[4] -= registres[4];
+                }
+                else {
+                    int put = atoi(arg2);
+                    registres[4] -= put;
+                }
+            }
+        }
         else if (strcmp(command_name, "INC") == 0) {
             if (arg1[0] == 'a') {
                 registres[0] += 1;
