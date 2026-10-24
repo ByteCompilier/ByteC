@@ -23,15 +23,14 @@ int main(int argc, char *argv[]){//main function
     char command_name[COMMAND_SIZE];//our command name var
     char arg1[ARG1];
     char arg2[ARG2];
-    int8_t registres[5];
+    uint8_t registres[5] = {0};
     FILE *pfile = fopen(argv[1], "r");//opens file in read mode
     if(pfile == NULL) {//if file dont opened we return 1
         printf("Error opening file\n");//printing error
         return 1;
     }
     //if file opened successfully
-    while (!feof(pfile)) {//our main cycle
-        fgets(command, COMMAND_SIZE, pfile);// input one command for testing
+    while (fgets(command, COMMAND_SIZE, pfile) != NULL) {// input one command for testing
         sscanf(command, "%s %s %s",command_name, arg1, arg2 );
         if (strcmp(command_name, "MOV") == 0) {
             if (arg1[0] == 'a') {
@@ -170,13 +169,13 @@ int main(int argc, char *argv[]){//main function
                     registres[1] += registres[1];
                 }
                 else if (arg2[0] == 'c') {
-                    registres[1] += registres[1];
-                }
-                else if (arg2[0] == 'd') {
                     registres[1] += registres[2];
                 }
-                else if (arg2[0] == 'e') {
+                else if (arg2[0] == 'd') {
                     registres[1] += registres[3];
+                }
+                else if (arg2[0] == 'e') {
+                    registres[1] += registres[4];
                 }
                 else {
                     int put = atoi(arg2);
@@ -277,13 +276,13 @@ int main(int argc, char *argv[]){//main function
                     registres[1] *= registres[1];
                 }
                 else if (arg2[0] == 'c') {
-                    registres[1] *= registres[1];
-                }
-                else if (arg2[0] == 'd') {
                     registres[1] *= registres[2];
                 }
-                else if (arg2[0] == 'e') {
+                else if (arg2[0] == 'd') {
                     registres[1] *= registres[3];
+                }
+                else if (arg2[0] == 'e') {
+                    registres[1] *= registres[4];
                 }
                 else {
                     int put = atoi(arg2);
@@ -384,13 +383,13 @@ int main(int argc, char *argv[]){//main function
                     registres[1] -= registres[1];
                 }
                 else if (arg2[0] == 'c') {
-                    registres[1] += registres[1];
-                }
-                else if (arg2[0] == 'd') {
                     registres[1] -= registres[2];
                 }
-                else if (arg2[0] == 'e') {
+                else if (arg2[0] == 'd') {
                     registres[1] -= registres[3];
+                }
+                else if (arg2[0] == 'e') {
+                    registres[1] -= registres[4];
                 }
                 else {
                     int put = atoi(arg2);
@@ -626,7 +625,6 @@ int main(int argc, char *argv[]){//main function
             }
         }
         else if (strcmp(command_name, "PR") == 0) {
-            int integer = atoi(arg1);
             if (arg1[0] == 'a') {
                 int put = registres[0];
                 printf("%d\n", put);
