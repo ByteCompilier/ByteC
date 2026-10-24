@@ -11,6 +11,7 @@
 #define ARG2 50//our command second argument
 
 int main(int argc, char *argv[]){//main function
+    int stroke_count = 1;
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
         printf("Version alpha 4!");
         return 0;
@@ -137,6 +138,9 @@ int main(int argc, char *argv[]){//main function
                 else {
                     registres[4] = put;
                 }
+            }
+            else {
+                system("C:\\Program Files\\bytec\\bytec-doc\\ERROR1.bat");
             }
         }
         else if (strcmp(command_name, "ADD") == 0) {
@@ -645,6 +649,7 @@ int main(int argc, char *argv[]){//main function
                 int put = registres[4];
                 printf("%d\n", put);
             }
+            stroke_count++;
         }
     }
     fclose(pfile);
