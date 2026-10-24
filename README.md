@@ -29,7 +29,7 @@ Since ByteC emulates an 8-bit architecture, it operates with strict hardware-lik
 4. Run commands:
    ```bash
    bytec --version  # To verify your installation
-   bytec            # To compile and execute your ByteC code files
+   bytec <filename> # To compile and execute your ByteC code files
    ```
 
 ## ❌ How to Uninstall
