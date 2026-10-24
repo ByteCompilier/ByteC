@@ -1,5 +1,5 @@
 # ByteC 🚀
-[![CodeQL Analysis](https://github.com)](https://github.com)
+[![CodeQL Analysis](https://github.com/ByteCompilier/ByteC)](https://github.com/ByteCompilier/ByteC)
 
 ByteC is a new low-level programming language that emulates a virtual 8-bit processor. The compiler and interpreter are written in pure C for maximum performance.
 
