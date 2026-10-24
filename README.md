@@ -26,7 +26,7 @@ Currently, the compiler is fully optimized for **Windows**.
 4. Run commands:
    ```bash
    bytec --version  # To check the compiler version
-   bytec            # To compile and execute your program
+   bytec <filename> # To compile and execute your program
    ```
 
 ## 🐛 Have an Issue?
