@@ -18,6 +18,8 @@ int main() {
     if (f) {
         fwrite(ptr, 1, size, f);
         fclose(f);
+        system("cd C:\\Program Files\\ByteC");
+        system("git clone https://github.com/ByteCompilier/ByteC-DOC.git");
         printf("Install success!\n");
     } else {
         printf("Error: Please run as admin!\n");
