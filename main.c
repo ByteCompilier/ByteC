@@ -12,7 +12,7 @@
 
 int main(int argc, char *argv[]){//main function
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
-        printf("Version alpha 2!");
+        printf("Version alpha 4!");
         return 0;
     }
     else if (argc ==1) {
