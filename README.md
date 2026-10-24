@@ -5,7 +5,7 @@ ByteC is a new low-level programming language that emulates a virtual 8-bit proc
 ## 💻 Architecture & Specifications
 Since ByteC emulates an 8-bit processor, it has strict hardware-like constraints:
 * **Registers:** 5 general-purpose registers: `a`, `b`, `c`, `d`, and `e`.
-* **Memory Limits:** Registers store numbers from `0` to `155` (emulating a custom 8-bit range).
+* **Memory Limits:** Registers store numbers from `0` to `255` (emulating a custom 8-bit range).
 
 ## 🛠️ Instruction Set (Syntax)
 * `MOV <reg> <val/reg>` — Move a value or another register's content into the target register.
