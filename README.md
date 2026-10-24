@@ -1,28 +1,36 @@
-# ByteC
-Hello, everybody! This is new low level programming language named ByteC. It writen in pure C.
-Syntax
-MOV - move from one register to another register. It has 5 registers a, b, c, d, e. Numbers in registers must be from 0 to 155.
-Because it emulates 8 bit processor.
-ADD - add one register to another register. Example ADD a 89 or ADD a b.
-SUB - sub one register to another register.
-MUL - mul one register to another register.
-DIV - div one register to another register.
-NEG - makes number negative.
-PR - print register to screen/terminal/cmd.
+# ByteC 🚀
 
-# How to run?
+ByteC is a new low-level programming language that emulates a virtual 8-bit processor. The compiler and interpreter are written in pure C for maximum performance.
 
-Run compilier only in windows. If you have another OS please type me in my mail. I make program for your OS. 
-When you download program you must make a file and write code to it. The file must be in  program directory.
-Then open cmd/terminal in your file directory and write 
-bytec --version for see compilier version.
-bytec <filename> for compile and run program.
+## 💻 Architecture & Specifications
+Since ByteC emulates an 8-bit processor, it has strict hardware-like constraints:
+* **Registers:** 5 general-purpose registers: `a`, `b`, `c`, `d`, and `e`.
+* **Memory Limits:** Registers store numbers from `0` to `155` (emulating a custom 8-bit range).
 
-# Have an issue?
+## 🛠️ Instruction Set (Syntax)
+* `MOV <reg> <val/reg>` — Move a value or another register's content into the target register.
+* `ADD <reg> <val/reg>` — Add a value or register content to the target register. *(Example: `ADD a 89` or `ADD a b`)*
+* `SUB <reg> <val/reg>` — Subtract a value or register content from the target register.
+* `MUL <reg> <val/reg>` — Multiply the target register by a value or another register.
+* `DIV <reg> <val/reg>` — Divide the target register by a value or another register.
+* `NEG <reg>` — Negate the number inside the specified register (makes it negative).
+* `PR <reg>` — Print the register value directly to the screen/terminal.
 
-Please open issues.
+## 🚀 How to Run
+Currently, the compiler is fully optimized for **Windows**.
+*(If you are using macOS or Linux, please open an Issue or email me, and I will compile a binary for your operating system).*
 
-# Want code it with me?
+1. Download the `bytec` compiler.
+2. Create a source file with your code and place it inside the compiler directory.
+3. Open CMD/Terminal in that directory.
+4. Run commands:
+   ```bash
+   bytec --version  # To check the compiler version
+   bytec            # To compile and execute your program
+   ```
 
-Please send me an mail and a think to add you to my organization to code together.
-In this week I am free.
+## 🐛 Have an Issue?
+If you find any bugs or edge cases, please feel free to open a **GitHub Issue** in this repository.
+
+## 🤝 Want to Code with Me?
+I am looking for contributors to develop ByteC together! If you love low-level programming, compiler design, and C, please **send me an email** or **open an issue**. I will gladly add you to our GitHub Organization as a team member! 
