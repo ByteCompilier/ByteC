@@ -140,7 +140,7 @@ int main(int argc, char *argv[]){//main function
                 }
             }
             else {
-                system("C:\\Program Files\\bytec\\bytec-doc\\ERROR1.bat");
+                system("C:\\Program Files\\bytec\\DOC\\ERROR1.bat");
                 printf("Line %d\n", stroke_count);
             }
         }
