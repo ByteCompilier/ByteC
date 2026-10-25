@@ -7,13 +7,13 @@
 
 #define COMMAND_SIZE 256 // our one command size
 #define COMMAND_NAME 50//our command name
-#define ARG1 2//our command first argument
+#define ARG1 50//our command first argument
 #define ARG2 50//our command second argument
 
 int main(int argc, char *argv[]){//main function
     int stroke_count = 1;
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
-        printf("Version alpha 4!");
+        printf("Version alpha 5!");
         return 0;
     }
     else if (argc ==1) {
@@ -24,6 +24,8 @@ int main(int argc, char *argv[]){//main function
     char command_name[COMMAND_SIZE];//our command name var
     char arg1[ARG1];
     char arg2[ARG2];
+    char labels[5000][100];
+    int label_count = 0;
     uint8_t registres[5] = {0};
     FILE *pfile = fopen(argv[1], "r");//opens file in read mode
     if(pfile == NULL) {//if file dont opened we return 1
@@ -33,11 +35,6 @@ int main(int argc, char *argv[]){//main function
     //if file opened successfully
     while (fgets(command, COMMAND_SIZE, pfile) != NULL) {// input one command for testing
         sscanf(command, "%s %s %s",command_name, arg1, arg2 );
-        if (arg1[0] != 'a' && arg1[0] != 'b' && arg1[0] != 'c' && arg1[0] != 'd' && arg1[0] != 'e') {
-            printf("In line %d\n", stroke_count);
-            system("\"C:\\program files\\bytec\\bytec\\ERROR3.bat\"");
-            exit(1);
-        }
         if (strcmp(command_name, "MOV") == 0) {
             if (arg1[0] == 'a') {
                 int put = atoi(arg2);
@@ -150,6 +147,35 @@ int main(int argc, char *argv[]){//main function
                 system("\"C:\\Program Files\\bytec\\bytec\\ERROR1.bat\"");
                 exit(1);
             }
+        }
+        else if (strcmp(command_name, "JMP") == 0) {
+            rewind(pfile);
+            while (1) {
+                int x = '\0';
+                while (x != ':') {
+                    x = fgetc(pfile);
+                    if (x == EOF) {
+                        goto exit;
+                    }
+                }
+                fseek(pfile, 1, SEEK_CUR);
+                for (int i = 0; 1 ==1 ; i++) {
+                    char proverka[100];
+                    char * status = 0;
+                    status = fgets(proverka, sizeof(proverka), pfile);
+                    proverka[strcspn(proverka, "\r\n")] = '\0';
+                    if (status == NULL) {
+                        goto exit;
+                    }
+                    if (strcmp(proverka, arg1) == 0) {
+                        goto exit;
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+exit:;
         }
         else if (strcmp(command_name, "ADD") == 0) {
             if (arg1[0] == 'a') {
