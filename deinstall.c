@@ -10,6 +10,7 @@ int main() {
         printf("[Warning] bytec.exe not found or file is locked.\n");
     }
 
+
     printf("Cleaning up residual directory files...\n");
 
     char cmd_buffer[512];
