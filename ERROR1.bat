@@ -1,8 +1,7 @@
 @echo off
 
-echo You only can move to register a number or another register.
-pause
-taskkill /f /im bytec.exe
+echo Syntax Error: You can only move a number or another register into a register.
+
 
 
 
