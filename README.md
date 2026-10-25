@@ -18,6 +18,7 @@ Since ByteC emulates an 8-bit architecture, it operates with strict hardware-lik
 * `DIV <reg> <val/reg>` — Divide the target register by a value or another register.
 * `NEG <reg>` — Negate the number inside the specified register (makes it negative).
 * `PR <reg>` — Print the current register value to the screen/terminal.
+* `JMP <label>` — Jump to label.
 
 ---
 
