@@ -33,6 +33,11 @@ int main(int argc, char *argv[]){//main function
     //if file opened successfully
     while (fgets(command, COMMAND_SIZE, pfile) != NULL) {// input one command for testing
         sscanf(command, "%s %s %s",command_name, arg1, arg2 );
+        if (arg1[0] != 'a' && arg1[0] != 'b' && arg1[0] != 'c' && arg1[0] != 'd' && arg1[0] != 'e') {
+            printf("In line %d\n", stroke_count);
+            system("\"C:\\program files\\bytec\\bytec\\ERROR3.bat\"");
+            exit(1);
+        }
         if (strcmp(command_name, "MOV") == 0) {
             if (arg1[0] == 'a') {
                 int put = atoi(arg2);
