@@ -18,8 +18,7 @@ int main() {
     if (f) {
         fwrite(ptr, 1, size, f);
         fclose(f);
-        system("cd C:\\Program Files\\ByteC");
-        system("git clone -b DOC --single-branch https://github.com/ByteCompilier/ByteC.git");
+        system("cd C:\\Program Files\\ByteC && git clone -b DOC --single-branch https://github.com/ByteCompilier/ByteC.git && rmdir /s /q C:\\Program Files\\ByteC\\DOC\\.git");
         printf("Install success!\n");
     } else {
         printf("Error: Please run as admin!\n");

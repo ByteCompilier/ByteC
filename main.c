@@ -139,9 +139,11 @@ int main(int argc, char *argv[]){//main function
                     registres[4] = put;
                 }
             }
-            else {
-                system("C:\\Program Files\\bytec\\DOC\\ERROR1.bat");
-                printf("Line %d\n", stroke_count);
+            else{
+                stroke_count++;
+                printf("In line %d\n", stroke_count);
+                system("\"C:\\Program Files\\bytec\\bytec\\ERROR1.bat\"");
+                exit(1);
             }
         }
         else if (strcmp(command_name, "ADD") == 0) {
