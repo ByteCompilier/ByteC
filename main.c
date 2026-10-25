@@ -484,6 +484,12 @@ int main(int argc, char *argv[]){//main function
                 else if (arg2[0] == 'e') {
                     registres[0] /= registres[4];
                 }
+                else if (strcmp(arg2, 0) == 0) {
+                    stroke_count++;
+                    printf("In line %d\n", stroke_count);
+                    system("\"C:\\program files\\bytec\\bytec\\ERROR3.bat\"");
+                    exit(1);
+                }
                 else {
                     int put = atoi(arg2);
                     registres[0] /= put;
