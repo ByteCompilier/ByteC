@@ -14,7 +14,7 @@
 int main(int argc, char *argv[]){//main function
     int stroke_count = 1;
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
-        printf("Version alpha 5!");
+        printf("Version alpha 6!");
         return 0;
     }
     else if (argc ==1) {
@@ -1632,6 +1632,31 @@ label:;
                 printf("Register not found\n");
             }
         }
+        else if (strcmp(command_name, "IN") == 0) {
+            int number = 0;
+            scanf("%d", &number);
+            if (arg1[0] == 'a') {
+                registres[0] = number;
+            }
+            else if (arg1[0] == 'b') {
+                registres[1] = number;
+            }
+            else if (arg1[0] == 'c') {
+                registres[2] = number;
+            }
+            else if (arg1[0] == 'd') {
+                registres[3] = number;
+            }
+            else if (arg1[0] == 'e') {
+                registres[4] = number;
+            }
+            else {
+                printf("Register not found\n");
+            }
+        }
+        else if (strcmp(command_name, ";") == 0) {
+            continue;
+        }
         else if (strcmp(command_name, "PR") == 0) {
             if (arg1[0] == 'a') {
                 int put = registres[0];
@@ -1651,6 +1676,10 @@ label:;
             }
             else if (arg1[0] == 'e') {
                 int put = registres[4];
+                printf("%d\n", put);
+            }
+            else {
+                int put = atoll(arg1);
                 printf("%d\n", put);
             }
             stroke_count++;
