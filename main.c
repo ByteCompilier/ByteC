@@ -9,6 +9,7 @@
 #define COMMAND_NAME 50//our command name
 #define ARG1 50//our command first argument
 #define ARG2 50//our command second argument
+#define ARG3 50
 
 int main(int argc, char *argv[]){//main function
     int stroke_count = 1;
@@ -24,9 +25,12 @@ int main(int argc, char *argv[]){//main function
     char command_name[COMMAND_SIZE];//our command name var
     char arg1[ARG1];
     char arg2[ARG2];
+    char arg3[ARG3];
     char labels[5000][100];
     int label_count = 0;
-    uint8_t registres[5] = {0};
+    int8_t code_if = 0;
+
+    int64_t registres[5] = {0};
     FILE *pfile = fopen(argv[1], "r");//opens file in read mode
     if(pfile == NULL) {//if file dont opened we return 1
         printf("Error opening file\n");//printing error
@@ -34,7 +38,7 @@ int main(int argc, char *argv[]){//main function
     }
     //if file opened successfully
     while (fgets(command, COMMAND_SIZE, pfile) != NULL) {// input one command for testing
-        sscanf(command, "%s %s %s",command_name, arg1, arg2 );
+        sscanf(command, "%s %s %s %s",command_name, arg1, arg2, arg3);
         if (strcmp(command_name, "MOV") == 0) {
             if (arg1[0] == 'a') {
                 int put = atoi(arg2);
@@ -148,6 +152,966 @@ int main(int argc, char *argv[]){//main function
                 exit(1);
             }
         }
+        else if (strcmp(command_name, "CMP") == 0) {
+            if (strcmp(arg2, "==") == 0) {
+                if (arg1[0] == 'a') {
+                    if (arg3[0] == 'a') {
+                        if (registres[0] == registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[0] == registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[0] == registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[0] == registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[0] == registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[0] == put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'b') {
+                    if (arg3[0] == 'a') {
+                        if (registres[1] == registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[1] == registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[1] == registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[1] == registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[1] == registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[1] == put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'c') {
+                    if (arg3[0] == 'a') {
+                        if (registres[2] == registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[2] == registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[2] == registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[2] == registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[2] == registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[2] == put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'd') {
+                    if (arg3[0] == 'a') {
+                        if (registres[3] == registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[3] == registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[3] == registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[3] == registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[3] == registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[3] == put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'e') {
+                    if (arg3[0] == 'a') {
+                        if (registres[4] == registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[4] == registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[4] == registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[4] == registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[4] == registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[4] == put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else {
+                    int put = atoll(arg1);
+                    if (arg3[0] == 'a') {
+                        if (put == registres[0]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'b') {
+                        if (put == registres[1]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'c') {
+                        if (put == registres[2]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'd') {
+                        if (put == registres[3]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'e') {
+                        if (put == registres[4]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else {
+                        int put_r = atoll(arg3);
+                        if (put == put_r) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    }
+
+                }
+            }
+            else if (strcmp(arg2, "<") == 0) {
+                if (arg1[0] == 'a') {
+                    if (arg3[0] == 'a') {
+                        if (registres[0] < registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[0] < registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[0] < registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[0] < registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[0] < registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[0] < put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'b') {
+                    if (arg3[0] == 'a') {
+                        if (registres[1] < registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[1] < registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[1] < registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[1] < registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[1] < registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[1] < put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'c') {
+                    if (arg3[0] == 'a') {
+                        if (registres[2] < registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[2] < registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[2] < registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[2] < registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[2] < registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[2] < put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'd') {
+                    if (arg3[0] == 'a') {
+                        if (registres[3] < registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[3] < registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[3] < registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[3] < registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[3] < registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[3] < put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'e') {
+                    if (arg3[0] == 'a') {
+                        if (registres[4] < registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[4] < registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[4] < registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[4] < registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[4] < registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[4] < put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else {
+                    int put = atoll(arg1);
+                    if (arg3[0] == 'a') {
+                        if (put < registres[0]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'b') {
+                        if (put < registres[1]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'c') {
+                        if (put < registres[2]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'd') {
+                        if (put < registres[3]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'e') {
+                        if (put < registres[4]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else {
+                        int put_r = atoll(arg3);
+                        if (put < put_r) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    }
+                }
+            }
+            else if (strcmp(arg2, ">") == 0) {
+                if (arg1[0] == 'a') {
+                    if (arg3[0] == 'a') {
+                        if (registres[0] > registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[0] > registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[0] > registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[0] > registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[0] > registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[0] > put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'b') {
+                    if (arg3[0] == 'a') {
+                        if (registres[1] > registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[1] > registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[1] > registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[1] > registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[1] > registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[1] > put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'c') {
+                    if (arg3[0] == 'a') {
+                        if (registres[2] > registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[2] > registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[2] > registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[2] > registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[2] > registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[2] > put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'd') {
+                    if (arg3[0] == 'a') {
+                        if (registres[3] > registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[3] > registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[3] > registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[3] > registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[3] > registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[3] > put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else if (arg1[0] == 'e') {
+                    if (arg3[0] == 'a') {
+                        if (registres[4] > registres[0]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'b') {
+                        if (registres[4] > registres[1]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'c') {
+                        if (registres[4] > registres[2]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'd') {
+                        if (registres[4] > registres[3]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else if (arg3[0] == 'e') {
+                        if (registres[4] > registres[4]) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                    else {
+                        int put = atoll(arg3);
+                        if (registres[4] > put) {
+                            code_if = 1;
+                        }
+                        else {
+                            code_if = 0;
+                        }
+                    }
+                }
+                else {
+                    int put = atoll(arg1);
+                    if (arg3[0] == 'a') {
+                        if (put > registres[0]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'b') {
+                        if (put > registres[1]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'c') {
+                        if (put > registres[2]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'd') {
+                        if (put > registres[3]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else if (arg3[0] == 'e') {
+                        if (put > registres[4]) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    } else {
+                        int put_r = atoll(arg3);
+                        if (put > put_r) {
+                            code_if = 1;
+                        } else {
+                            code_if = 0;
+                        }
+                    }
+                }
+            }
+        }
+        else if (strcmp(command_name, "JIF") == 0) {
+            if (code_if == 0) {
+                rewind(pfile);
+                while (1) {
+                    int x = '\0';
+                    while (x != ':') {
+                        x = fgetc(pfile);
+                        if (x == EOF) {
+                            goto exit;
+                        }
+                    }
+                    fseek(pfile, 1, SEEK_CUR);
+                    for (int i = 0; 1 ==1 ; i++) {
+                        char proverka[100];
+                        char * status = 0;
+                        status = fgets(proverka, sizeof(proverka), pfile);
+                        proverka[strcspn(proverka, "\r\n")] = '\0';
+                        if (status == NULL) {
+                            goto exit;
+                        }
+                        if (strcmp(proverka, arg1) == 0) {
+                            goto exit;
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                }
+exit:;
+            }
+        }
+        else if (strcmp(command_name, "JIT") == 0) {
+            if (code_if == 1) {
+                rewind(pfile);
+                while (1) {
+                    int x = '\0';
+                    while (x != ':') {
+                        x = fgetc(pfile);
+                        if (x == EOF) {
+                            goto hu;
+                        }
+                    }
+                    fseek(pfile, 1, SEEK_CUR);
+                    for (int i = 0; 1 ==1 ; i++) {
+                        char proverka[100];
+                        char * status = 0;
+                        status = fgets(proverka, sizeof(proverka), pfile);
+                        proverka[strcspn(proverka, "\r\n")] = '\0';
+                        if (status == NULL) {
+                            goto hu;
+                        }
+                        if (strcmp(proverka, arg1) == 0) {
+                            goto hu;
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                }
+                hu:;
+            }
+
+        }
         else if (strcmp(command_name, "JMP") == 0) {
             rewind(pfile);
             while (1) {
@@ -155,7 +1119,7 @@ int main(int argc, char *argv[]){//main function
                 while (x != ':') {
                     x = fgetc(pfile);
                     if (x == EOF) {
-                        goto exit;
+                        goto label;
                     }
                 }
                 fseek(pfile, 1, SEEK_CUR);
@@ -165,17 +1129,17 @@ int main(int argc, char *argv[]){//main function
                     status = fgets(proverka, sizeof(proverka), pfile);
                     proverka[strcspn(proverka, "\r\n")] = '\0';
                     if (status == NULL) {
-                        goto exit;
+                        goto label;
                     }
                     if (strcmp(proverka, arg1) == 0) {
-                        goto exit;
+                        goto label;
                     }
                     else {
                         break;
                     }
                 }
             }
-exit:;
+label:;
         }
         else if (strcmp(command_name, "ADD") == 0) {
             if (arg1[0] == 'a') {
@@ -691,6 +1655,11 @@ exit:;
             }
             stroke_count++;
         }
+        arg1[0] = '\0';
+        arg2[0] = '\0';
+        arg3[0] = '\0';
+        command_name[0] = '\0';
+        command[0] = '\0';
     }
     fclose(pfile);
     pfile = NULL;
