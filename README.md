@@ -1,12 +1,11 @@
 # ByteC 🚀
 
-ByteC is a lightweight low-level programming language that emulates a custom virtual 8-bit processor. The entire toolchain (compiler, interpreter, installer, and uninstaller) is written in pure C99 for maximum performance and zero dependencies.
+ByteC is a lightweight low-level programming language that emulates a custom virtual 64-bit processor. The entire toolchain (compiler, interpreter, installer, and uninstaller) is written in pure C99 for maximum performance and zero dependencies.
 
 ## 💻 Architecture & Specifications
 Since ByteC emulates an 8-bit architecture, it operates with strict hardware-like constraints:
-* **Registers:** 5 general-purpose 8-bit registers: `a`, `b`, `c`, `d`, and `e`.
-* **Memory Type:** Strict fixed-width data types via `<stdint.h>` (`uint8_t`).
-* **Overflow Handling:** Circular modulo-256 arithmetic (integer overflow loops automatically from 255 back to 0).
+* **Registers:** 5 general-purpose 64-bit registers: `a`, `b`, `c`, `d`, and `e` and 1 8-bit condition register `ZS`.
+* **Memory Type:** Strict fixed-width data types via `<stdint.h>` (`int64_t`).
 
 ## 🛠️ Instruction Set (Syntax)
 
@@ -19,7 +18,9 @@ Since ByteC emulates an 8-bit architecture, it operates with strict hardware-lik
 * `NEG <reg>` — Negate the number inside the specified register (makes it negative).
 * `PR <reg>` — Print the current register value to the screen/terminal.
 * `JMP <label>` — Jump to label.
-
+* `JIT <label>` — Jump to label if CMP return's 1.
+* `JIF <label>` — Jump to label if CMP return's 0.
+* `CMP <reg/val> <operator> <reg/val>` — If condition true it move's 1 to ZS register else move's 0(Example: CMP a > 56).
 ---
 
 ## 🚀 How to Install & Run (Windows)
