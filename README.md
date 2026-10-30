@@ -3,7 +3,7 @@
 ByteC is a lightweight low-level programming language that emulates a custom virtual 64-bit processor. The entire toolchain (compiler, interpreter, installer, and uninstaller) is written in pure C99 for maximum performance and zero dependencies.
 
 ## 💻 Architecture & Specifications
-Since ByteC emulates an 8-bit architecture, it operates with strict hardware-like constraints:
+Since ByteC emulates an 64-bit architecture, it operates with strict hardware-like constraints:
 * **Registers:** 5 general-purpose 64-bit registers: `a`, `b`, `c`, `d`, and `e` and 1 8-bit condition register `ZS`.
 * **Memory Type:** Strict fixed-width data types via `<stdint.h>` (`int64_t`).
 
