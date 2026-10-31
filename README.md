@@ -47,5 +47,5 @@ If you find any bugs, edge cases, or memory issues, please feel free to open a *
 
 ## 🤝 Want to Code with Me?
 I am looking for contributors to develop ByteC together! If you love low-level programming, compiler design, and pure C, please send me an email or open an issue. I will gladly add you to our GitHub Organization as a team member!
-## License
+## 📑 License
 Distributed under the MIT License. See `LICENSE` for more information.
