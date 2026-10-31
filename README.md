@@ -21,6 +21,7 @@ Since ByteC emulates an 64-bit architecture, it operates with strict hardware-li
 * `JIT <label>` — Jump to label if CMP return's 1.
 * `JIF <label>` — Jump to label if CMP return's 0.
 * `CMP <reg/val> <operator> <reg/val>` — If condition true it move's 1 to ZS register else move's 0(Example: CMP a > 56).
+* 
 ---
 
 ## 🚀 How to Install & Run (Windows)
@@ -45,3 +46,5 @@ If you find any bugs, edge cases, or memory issues, please feel free to open a *
 
 ## 🤝 Want to Code with Me?
 I am looking for contributors to develop ByteC together! If you love low-level programming, compiler design, and pure C, please send me an email or open an issue. I will gladly add you to our GitHub Organization as a team member!
+## License
+Distributed under the MIT License. See `LICENSE` for more information.

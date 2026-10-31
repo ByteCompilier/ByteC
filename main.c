@@ -1,5 +1,8 @@
-//classic vm emulator for 8 bit processor
+//Copyright (c) 2026 ByteCompilier
+//SPDX-License-Identifier: MIT
 
+
+//classic vm emulator for 8 bit processor
 #include <stdio.h>//include stdio.h library
 #include <string.h> // include string.h library
 #include <stdint.h>
@@ -10,9 +13,14 @@
 #define ARG1 50//our command first argument
 #define ARG2 50//our command second argument
 #define ARG3 50
+#define STACK_SIZE 10000
+#define ARG_SIZE 2
 
 int main(int argc, char *argv[]){//main function
-    int stroke_count = 1;
+    int stroke_count = 0;
+    long return_stack[STACK_SIZE];
+    int stack_pointer = -1;
+
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
         printf("Version alpha 6!");
         return 0;
@@ -21,15 +29,14 @@ int main(int argc, char *argv[]){//main function
         printf("Command line args error!\n");
         return 1;
     }
+    int64_t registers_copy[5] = {0};
     char command[COMMAND_SIZE]; // our command buffer
     char command_name[COMMAND_SIZE];//our command name var
     char arg1[ARG1];
     char arg2[ARG2];
     char arg3[ARG3];
     char labels[5000][100];
-    int label_count = 0;
     int8_t code_if = 0;
-
     int64_t registres[5] = {0};
     FILE *pfile = fopen(argv[1], "r");//opens file in read mode
     if(pfile == NULL) {//if file dont opened we return 1
@@ -39,6 +46,7 @@ int main(int argc, char *argv[]){//main function
     //if file opened successfully
     while (fgets(command, COMMAND_SIZE, pfile) != NULL) {// input one command for testing
         sscanf(command, "%s %s %s %s",command_name, arg1, arg2, arg3);
+        stroke_count++;
         if (strcmp(command_name, "MOV") == 0) {
             if (arg1[0] == 'a') {
                 int put = atoi(arg2);
@@ -146,7 +154,6 @@ int main(int argc, char *argv[]){//main function
                 }
             }
             else{
-                stroke_count++;
                 printf("In line %d\n", stroke_count);
                 system("\"C:\\Program Files\\bytec\\bytec\\ERROR1.bat\"");
                 exit(1);
@@ -2036,6 +2043,47 @@ exit:;
             }
 label:;
         }
+        else if (strcmp(command_name, "CALL") == 0) {
+            registers_copy[0] = registres[0];
+            registers_copy[1] = registres[1];
+            registers_copy[2] = registres[2];
+            registers_copy[3] = registres[3];
+            registers_copy[4] = registres[4];
+            stack_pointer++;
+            return_stack[stack_pointer] = ftell(pfile);
+            rewind(pfile);
+            while (1) {
+                int x = '\0';
+                while (x != ':') {
+                    x = fgetc(pfile);
+                    if (x == EOF) {
+                        goto labelk;
+                    }
+                }
+                fseek(pfile, 1, SEEK_CUR);
+                for (int i = 0; 1 ==1 ; i++) {
+                    char proverka[100];
+                    char * status = 0;
+                    status = fgets(proverka, sizeof(proverka), pfile);
+
+                    if (status == NULL) {
+                        printf("CALL: label not found: %s\n", arg1);
+                        stack_pointer--;
+                        fseek(pfile, return_stack[stack_pointer + 1], SEEK_SET);
+                        goto labelk;
+                    }
+
+                    proverka[strcspn(proverka, "\r\n")] = '\0';
+                    if (strcmp(proverka, arg1) == 0) {
+                        goto labelk;
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+            labelk:;
+        }
         else if (strcmp(command_name, "ADD") == 0) {
             if (arg1[0] == 'a') {
                 if (arg2[0] == 'a') {
@@ -2142,6 +2190,8 @@ label:;
                     registres[4] += put;
                 }
             }
+            printf("DEBUG ADD: arg1=%s arg2=%s b=%lld\n",
+       arg1, arg2, (long long)registres[1]);
         }
         else if (strcmp(command_name, "MUL") == 0) {
             if (arg1[0] == 'a') {
@@ -2375,7 +2425,6 @@ label:;
                     registres[0] /= registres[4];
                 }
                 else if (strcmp(arg2, 0) == 0) {
-                    stroke_count++;
                     printf("In line %d\n", stroke_count);
                     system("\"C:\\program files\\bytec\\bytec\\ERROR3.bat\"");
                     exit(1);
@@ -2552,6 +2601,72 @@ label:;
         else if (strcmp(command_name, ";") == 0) {
             continue;
         }
+        else if (strcmp(command_name, "RET") == 0) {
+            printf("DEBUG RET: arg1=%s b=%lld saved_b=%lld\n",
+       arg1, (long long)registres[1],
+       (long long)registers_copy[1]);
+            if (return_stack[stack_pointer] == 0) {
+                exit(0);
+            }
+            fseek(pfile, return_stack[stack_pointer], SEEK_SET);
+            return_stack[stack_pointer] = 0;
+            stack_pointer--;
+            if (strcmp(arg1, "a") == 0) {
+                registres[1] = registers_copy[1];
+                registres[2] = registers_copy[2];
+                registres[3] = registers_copy[3];
+                registres[4] = registers_copy[4];
+                registers_copy[0] = 0;
+                registers_copy[1] = 0;
+                registers_copy[2] = 0;
+                registers_copy[3] = 0;
+                registers_copy[4] = 0;
+            }
+            else if (strcmp(arg1, "b") == 0) {
+                registres[0] = registers_copy[0];
+                registres[2] = registers_copy[2];
+                registres[3] = registers_copy[3];
+                registres[4] = registers_copy[4];
+                registers_copy[0] = 0;
+                registers_copy[1] = 0;
+                registers_copy[2] = 0;
+                registers_copy[3] = 0;
+                registers_copy[4] = 0;
+            }
+            else if (strcmp(arg1, "c") == 0) {
+                registres[0] = registers_copy[0];
+                registres[1] = registers_copy[1];
+                registres[3] = registers_copy[3];
+                registres[4] = registers_copy[4];
+                registers_copy[0] = 0;
+                registers_copy[1] = 0;
+                registers_copy[2] = 0;
+                registers_copy[3] = 0;
+                registers_copy[4] = 0;
+            }
+            else if (strcmp(arg1, "d") == 0) {
+                registres[0] = registers_copy[0];
+                registres[1] = registers_copy[1];
+                registres[2] = registers_copy[2];
+                registres[4] = registers_copy[4];
+                registers_copy[0] = 0;
+                registers_copy[1] = 0;
+                registers_copy[2] = 0;
+                registers_copy[3] = 0;
+                registers_copy[4] = 0;
+            }
+            else if (strcmp(arg1, "e") == 0) {
+                registres[0] = registers_copy[0];
+                registres[1] = registers_copy[1];
+                registres[2] = registers_copy[2];
+                registres[3] = registers_copy[3];
+                registers_copy[0] = 0;
+                registers_copy[1] = 0;
+                registers_copy[2] = 0;
+                registers_copy[3] = 0;
+                registers_copy[4] = 0;
+            }
+        }
         else if (strcmp(command_name, "PR") == 0) {
             if (arg1[0] == 'a') {
                 int put = registres[0];
@@ -2577,7 +2692,6 @@ label:;
                 int put = atoll(arg1);
                 printf("%d\n", put);
             }
-            stroke_count++;
         }
         arg1[0] = '\0';
         arg2[0] = '\0';
