@@ -20,8 +20,9 @@ Since ByteC emulates an 64-bit architecture, it operates with strict hardware-li
 * `JMP <label>` — Jump to label.
 * `JIT <label>` — Jump to label if CMP return's 1.
 * `JIF <label>` — Jump to label if CMP return's 0.
-* `CMP <reg/val> <operator> <reg/val>` — If condition true it move's 1 to ZS register else move's 0(Example: CMP a > 56).
-* 
+* `CMP <reg/val> <operator> <reg/val>` — If condition true it move's 1 to ZS register else move's 0(Example: `CMP a > 56`).
+* `INC <reg>` — Increment a register.
+* `DEC <reg>` — Decrement a register.
 ---
 
 ## 🚀 How to Install & Run (Windows)
