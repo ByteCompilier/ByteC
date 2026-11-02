@@ -29,13 +29,13 @@ int main(int argc, char *argv[]){//main function
         printf("Command line args error!\n");
         return 1;
     }
-    int64_t registers_copy[5] = {0};
+    int64_t register_stack[STACK_SIZE][5];
+    int64_t arguments[STACK_SIZE][2];
     char command[COMMAND_SIZE]; // our command buffer
     char command_name[COMMAND_SIZE];//our command name var
     char arg1[ARG1];
     char arg2[ARG2];
     char arg3[ARG3];
-    char labels[5000][100];
     int8_t code_if = 0;
     int64_t registres[5] = {0};
     FILE *pfile = fopen(argv[1], "r");//opens file in read mode
@@ -2044,13 +2044,177 @@ exit:;
 label:;
         }
         else if (strcmp(command_name, "CALL") == 0) {
-            registers_copy[0] = registres[0];
-            registers_copy[1] = registres[1];
-            registers_copy[2] = registres[2];
-            registers_copy[3] = registres[3];
-            registers_copy[4] = registres[4];
             stack_pointer++;
             return_stack[stack_pointer] = ftell(pfile);
+            if (strcmp(arg2, "a") ==0) {
+                if (strcmp(arg3, "a") ==0) {
+                    arguments[stack_pointer][0] = registres[0];
+                    arguments[stack_pointer][1] = registres[0];
+                }
+                else if (strcmp(arg3, "b") ==0) {
+                    arguments[stack_pointer][0] = registres[0];
+                    arguments[stack_pointer][1] = registres[1];
+                }
+                else if (strcmp(arg3, "c") ==0) {
+                    arguments[stack_pointer][0] = registres[0];
+                    arguments[stack_pointer][1] = registres[2];
+                }
+                else if (strcmp(arg3, "d") ==0) {
+                    arguments[stack_pointer][0] = registres[0];
+                    arguments[stack_pointer][1] = registres[3];
+                }
+                else if (strcmp(arg3, "e") ==0) {
+                    arguments[stack_pointer][0] = registres[0];
+                    arguments[stack_pointer][1] = registres[4];
+                }
+                else {
+                    long long put = atoll(arg2);
+                    int put_r = atoll(arg3);
+                    arguments[stack_pointer][0] = put;
+                    arguments[stack_pointer][1] = put_r;
+                }
+            }
+            else if (strcmp(arg2, "b") ==0) {
+                if (strcmp(arg3, "a") == 0) {
+                    arguments[stack_pointer][0] = registres[1];
+                    arguments[stack_pointer][1] = registres[0];
+                }
+                else if (strcmp(arg3, "b") ==0) {
+                    arguments[stack_pointer][0] = registres[1];
+                    arguments[stack_pointer][1] = registres[1];
+                }
+                else if (strcmp(arg3, "c") ==0) {
+                    arguments[stack_pointer][0] = registres[1];
+                    arguments[stack_pointer][1] = registres[2];
+                }
+                else if (strcmp(arg3, "d") ==0) {
+                    arguments[stack_pointer][0] = registres[1];
+                    arguments[stack_pointer][1] = registres[3];
+                }
+                else if (strcmp(arg3, "e") ==0) {
+                    arguments[stack_pointer][0] = registres[1];
+                    arguments[stack_pointer][1] = registres[4];
+                }
+                else {
+                    long long put = atoll(arg2);
+                    int put_r = atoll(arg3);
+                    arguments[stack_pointer][0] = put;
+                    arguments[stack_pointer][1] = put_r;
+                }
+            }
+            else if (strcmp(arg2, "c") ==0) {
+                if (strcmp(arg3, "a") == 0) {
+                    arguments[stack_pointer][0] = registres[2];
+                    arguments[stack_pointer][1] = registres[0];
+                }
+                else if (strcmp(arg3, "b") ==0) {
+                    arguments[stack_pointer][0] = registres[2];
+                    arguments[stack_pointer][1] = registres[1];
+                }
+                else if (strcmp(arg3, "c") ==0) {
+                    arguments[stack_pointer][0] = registres[2];
+                    arguments[stack_pointer][1] = registres[2];
+                }
+                else if (strcmp(arg3, "d") ==0) {
+                    arguments[stack_pointer][0] = registres[2];
+                    arguments[stack_pointer][1] = registres[3];
+                }
+                else if (strcmp(arg3, "e") ==0) {
+                    arguments[stack_pointer][0] = registres[2];
+                    arguments[stack_pointer][1] = registres[4];
+                }
+                else {
+                    long long put = atoll(arg2);
+                    int put_r = atoll(arg3);
+                    arguments[stack_pointer][0] = put;
+                    arguments[stack_pointer][1] = put_r;
+                }
+            }
+            else if (strcmp(arg2, "d") ==0) {
+                if (strcmp(arg3, "a") == 0) {
+                    arguments[stack_pointer][0] = registres[3];
+                    arguments[stack_pointer][1] = registres[0];
+                }
+                else if (strcmp(arg3, "b") ==0) {
+                    arguments[stack_pointer][0] = registres[3];
+                    arguments[stack_pointer][1] = registres[1];
+                }
+                else if (strcmp(arg3, "c") ==0) {
+                    arguments[stack_pointer][0] = registres[3];
+                    arguments[stack_pointer][1] = registres[2];
+                }
+                else if (strcmp(arg3, "d") ==0) {
+                    arguments[stack_pointer][0] = registres[3];
+                    arguments[stack_pointer][1] = registres[3];
+                }
+                else if (strcmp(arg3, "e") ==0) {
+                    arguments[stack_pointer][0] = registres[3];
+                    arguments[stack_pointer][1] = registres[4];
+                }
+                else {
+                    long long put = atoll(arg2);
+                    int put_r = atoll(arg3);
+                    arguments[stack_pointer][0] = put;
+                    arguments[stack_pointer][1] = put_r;
+                }
+            }
+            else if (strcmp(arg2, "e") ==0) {
+                if (strcmp(arg3, "a") == 0) {
+                    arguments[stack_pointer][0] = registres[4];
+                    arguments[stack_pointer][1] = registres[0];
+                }
+                else if (strcmp(arg3, "b") ==0) {
+                    arguments[stack_pointer][0] = registres[4];
+                    arguments[stack_pointer][1] = registres[1];
+                }
+                else if (strcmp(arg3, "c") ==0) {
+                    arguments[stack_pointer][0] = registres[4];
+                    arguments[stack_pointer][1] = registres[2];
+                }
+                else if (strcmp(arg3, "d") ==0) {
+                    arguments[stack_pointer][0] = registres[4];
+                    arguments[stack_pointer][1] = registres[3];
+                }
+                else if (strcmp(arg3, "e") ==0) {
+                    arguments[stack_pointer][0] = registres[4];
+                    arguments[stack_pointer][1] = registres[4];
+                }
+                else {
+                    long long put = atoll(arg2);
+                    int put_r = atoll(arg3);
+                    arguments[stack_pointer][0] = put;
+                    arguments[stack_pointer][1] = put_r;
+                }
+            }
+            else {
+                if (strcmp(arg3, "a") ==0) {
+                    arguments[stack_pointer][1] = registres[0];
+                }
+                else if (strcmp(arg3, "b") ==0) {
+                    arguments[stack_pointer][1] = registres[1];
+                }
+                else if (strcmp(arg3, "c") ==0) {
+                    arguments[stack_pointer][1] = registres[2];
+                }
+                else if (strcmp(arg3, "d") ==0) {
+                    arguments[stack_pointer][1] = registres[3];
+                }
+                else if (strcmp(arg3, "e") ==0) {
+                    arguments[stack_pointer][1] = registres[4];
+                }
+                else {
+                    long long put_tr = atoll(arg3);
+                    arguments[stack_pointer][1] = put_tr;
+                }
+                long long put = atoll(arg2);
+                arguments[stack_pointer][0] = put;
+            }
+            for (int i = 0; i < 5; i++) {
+                register_stack[stack_pointer][i] = registres[i];
+            }
+            for (int i = 0; i < 5 ; i++) {
+                registres[i] = 0;
+            }
             rewind(pfile);
             while (1) {
                 int x = '\0';
@@ -2190,8 +2354,6 @@ label:;
                     registres[4] += put;
                 }
             }
-            printf("DEBUG ADD: arg1=%s arg2=%s b=%lld\n",
-       arg1, arg2, (long long)registres[1]);
         }
         else if (strcmp(command_name, "MUL") == 0) {
             if (arg1[0] == 'a') {
@@ -2407,6 +2569,54 @@ label:;
                 }
             }
         }
+        else if (strcmp(command_name, "ARG") == 0) {
+            if (strcmp(arg1, "a") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[0] = arguments[stack_pointer][0];
+                }
+                else if (strcmp(arg2, "2") == 0) {
+                    registres[0] = arguments[stack_pointer][1];
+                }
+                else {
+                    printf("In line %d ERROR please write 1 or 2!\n", stack_pointer);
+                }
+            }
+            else if (strcmp(arg1, "b") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[1] = arguments[stack_pointer][0];
+                }
+                else if (strcmp(arg2, "2") == 0) {
+                    registres[1] = arguments[stack_pointer][1];
+                }
+            }
+            else if (strcmp(arg1, "c") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[2] = arguments[stack_pointer][0];
+                }
+                else if (strcmp(arg2, "2") == 0) {
+                    registres[2] = arguments[stack_pointer][1];
+                }
+            }
+            else if (strcmp(arg1, "d") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[3] = arguments[stack_pointer][0];
+                }
+                else if (strcmp(arg2, "2") == 0) {
+                    registres[3] = arguments[stack_pointer][1];
+                }
+            }
+            else if (strcmp(arg1, "e") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[4] = arguments[stack_pointer][0];
+                }
+                else if (strcmp(arg2, "2") == 0) {
+                    registres[4] = arguments[stack_pointer][1];
+                }
+            }
+            else {
+                printf("In line %d register not found!\n", stack_pointer);
+            }
+        }
         else if (strcmp(command_name, "DIV") == 0) {
             if (arg1[0] == 'a') {
                 if (arg2[0] == 'a') {
@@ -2424,7 +2634,7 @@ label:;
                 else if (arg2[0] == 'e') {
                     registres[0] /= registres[4];
                 }
-                else if (strcmp(arg2, 0) == 0) {
+                else if (arg2[0] == '\0') {
                     printf("In line %d\n", stroke_count);
                     system("\"C:\\program files\\bytec\\bytec\\ERROR3.bat\"");
                     exit(1);
@@ -2602,97 +2812,54 @@ label:;
             continue;
         }
         else if (strcmp(command_name, "RET") == 0) {
-            printf("DEBUG RET: arg1=%s b=%lld saved_b=%lld\n",
-       arg1, (long long)registres[1],
-       (long long)registers_copy[1]);
-            if (return_stack[stack_pointer] == 0) {
-                exit(0);
+            int return_register = -1;
+
+            if (strcmp(arg1, "a") == 0) return_register = 0;
+            else if (strcmp(arg1, "b") == 0) return_register = 1;
+            else if (strcmp(arg1, "c") == 0) return_register = 2;
+            else if (strcmp(arg1, "d") == 0) return_register = 3;
+            else if (strcmp(arg1, "e") == 0) return_register = 4;
+            long long value = registres[return_register];
+            for (int i = 0; i < 5; i++) {
+                registres[i] = register_stack[stack_pointer][i];
             }
+            registres[return_register] = value;
             fseek(pfile, return_stack[stack_pointer], SEEK_SET);
             return_stack[stack_pointer] = 0;
+            for (int i  =0; i < 5; i++) {
+                register_stack[stack_pointer][i] = 0;
+            }
+            for (int i = 0; i < 2; i++) {
+                arguments[stack_pointer][i] = 0;
+            }
             stack_pointer--;
-            if (strcmp(arg1, "a") == 0) {
-                registres[1] = registers_copy[1];
-                registres[2] = registers_copy[2];
-                registres[3] = registers_copy[3];
-                registres[4] = registers_copy[4];
-                registers_copy[0] = 0;
-                registers_copy[1] = 0;
-                registers_copy[2] = 0;
-                registers_copy[3] = 0;
-                registers_copy[4] = 0;
-            }
-            else if (strcmp(arg1, "b") == 0) {
-                registres[0] = registers_copy[0];
-                registres[2] = registers_copy[2];
-                registres[3] = registers_copy[3];
-                registres[4] = registers_copy[4];
-                registers_copy[0] = 0;
-                registers_copy[1] = 0;
-                registers_copy[2] = 0;
-                registers_copy[3] = 0;
-                registers_copy[4] = 0;
-            }
-            else if (strcmp(arg1, "c") == 0) {
-                registres[0] = registers_copy[0];
-                registres[1] = registers_copy[1];
-                registres[3] = registers_copy[3];
-                registres[4] = registers_copy[4];
-                registers_copy[0] = 0;
-                registers_copy[1] = 0;
-                registers_copy[2] = 0;
-                registers_copy[3] = 0;
-                registers_copy[4] = 0;
-            }
-            else if (strcmp(arg1, "d") == 0) {
-                registres[0] = registers_copy[0];
-                registres[1] = registers_copy[1];
-                registres[2] = registers_copy[2];
-                registres[4] = registers_copy[4];
-                registers_copy[0] = 0;
-                registers_copy[1] = 0;
-                registers_copy[2] = 0;
-                registers_copy[3] = 0;
-                registers_copy[4] = 0;
-            }
-            else if (strcmp(arg1, "e") == 0) {
-                registres[0] = registers_copy[0];
-                registres[1] = registers_copy[1];
-                registres[2] = registers_copy[2];
-                registres[3] = registers_copy[3];
-                registers_copy[0] = 0;
-                registers_copy[1] = 0;
-                registers_copy[2] = 0;
-                registers_copy[3] = 0;
-                registers_copy[4] = 0;
-            }
         }
-        else if (strcmp(command_name, "PR") == 0) {
-            if (arg1[0] == 'a') {
+       else if (strcmp(command_name, "PR") == 0) {
+           if (arg1[0] == 'a') {
                 int put = registres[0];
                 printf("%d\n", put);
-            }
-            else if (arg1[0] == 'b') {
+           }
+           else if (arg1[0] == 'b') {
                 int put = registres[1];
                 printf("%d\n", put);
-            }
-            else if (arg1[0] == 'c') {
+           }
+           else if (arg1[0] == 'c') {
                 int put = registres[2];
                 printf("%d\n", put);
-            }
-            else if (arg1[0] == 'd') {
+           }
+           else if (arg1[0] == 'd') {
                 int put = registres[3];
                 printf("%d\n", put);
-            }
-            else if (arg1[0] == 'e') {
+           }
+           else if (arg1[0] == 'e') {
                 int put = registres[4];
                 printf("%d\n", put);
-            }
-            else {
+           }
+           else {
                 int put = atoll(arg1);
                 printf("%d\n", put);
-            }
-        }
+           }
+       }
         arg1[0] = '\0';
         arg2[0] = '\0';
         arg3[0] = '\0';
