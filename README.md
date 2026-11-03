@@ -23,6 +23,10 @@ Since ByteC emulates an 64-bit architecture, it operates with strict hardware-li
 * `CMP <reg/val> <operator> <reg/val>` — If condition true it move's 1 to ZS register else move's 0(Example: `CMP a > 56`).
 * `INC <reg>` — Increment a register.
 * `DEC <reg>` — Decrement a register.
+* `CALL <function name> <arg1> <arg2>` — Call a function with optional arguments.
+* `RET <reg>` — Return to function call and return value of register.
+* `ARG <reg> <arg number> ` — Put argument to register.
+
 ---
 
 ## 🚀 How to Install & Run (Windows)
