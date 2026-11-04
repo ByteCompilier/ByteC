@@ -26,6 +26,7 @@ Since ByteC emulates an 64-bit architecture, it operates with strict hardware-li
 * `CALL <function name> <arg1> <arg2>` — Call a function with optional arguments.
 * `RET <reg>` — Return to function call and return value of register.
 * `ARG <reg> <arg number> ` — Put argument to register.
+* `INCLUDE <lib>` — Include a library code.
 
 ---
 

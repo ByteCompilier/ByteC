@@ -2,11 +2,12 @@
 //SPDX-License-Identifier: MIT
 
 
-//classic vm emulator for 8 bit processor
 #include <stdio.h>//include stdio.h library
 #include <string.h> // include string.h library
 #include <stdint.h>
 #include <stdlib.h> //include stdint.h library
+#include "preprocessor.h"
+
 
 #define COMMAND_SIZE 256 // our one command size
 #define COMMAND_NAME 50//our command name
@@ -22,11 +23,17 @@ int main(int argc, char *argv[]){//main function
     int stack_pointer = -1;
 
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
-        printf("Version alpha 6!");
+        printf("Version alpha 6!\n");
         return 0;
     }
-    else if (argc ==1) {
+
+    if (argc < 2) {
         printf("Command line args error!\n");
+        return 1;
+    }
+
+    if (preprocess_file(argv[1]) != 0) {
+        printf("Preprocessor error!\n");
         return 1;
     }
     int64_t register_stack[STACK_SIZE][5];
@@ -38,7 +45,7 @@ int main(int argc, char *argv[]){//main function
     char arg3[ARG3];
     int8_t code_if = 0;
     int64_t registres[5] = {0};
-    FILE *pfile = fopen(argv[1], "r");//opens file in read mode
+    FILE *pfile = fopen("prep.bc", "r");//opens file in read mode
     if(pfile == NULL) {//if file dont opened we return 1
         printf("Error opening file\n");//printing error
         return 1;
@@ -2462,6 +2469,8 @@ label:;
                 }
             }
         }
+        else if (strcmp(command_name, "INCLUDE") == 0) {
+        }
         else if (strcmp(command_name, "SUB") == 0) {
             if (arg1[0] == 'a') {
                 if (arg2[0] == 'a') {
@@ -2812,6 +2821,10 @@ label:;
             continue;
         }
         else if (strcmp(command_name, "RET") == 0) {
+            if (stack_pointer < 0 || stack_pointer >= 10000) {
+                printf("VM error: invalid stack_pointer: %d\n", stack_pointer);
+                return 1;
+            }
             int return_register = -1;
 
             if (strcmp(arg1, "a") == 0) return_register = 0;

@@ -5,7 +5,9 @@ set(CMAKE_C_STANDARD 11)
 
 enable_language(RC)
 
-add_executable(ByteC main.c
+add_executable(ByteC
+        main.c
+        preprocessor.c
 )
 
 add_executable(bytec_installer
