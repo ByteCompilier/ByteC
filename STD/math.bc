@@ -1,0 +1,103 @@
+; Copyright (c) 2026 ByteCompilier
+; SPDX-License-Identifier: MIT
+
+
+; STD standart library math.bc file! Version 0.1!
+
+JMP math_end
+
+; abs function
+
+: abs
+ARG a 1
+
+CMP a < 0
+JIT negative
+JIF positive
+
+: negative
+NEG a
+RET a
+
+: positive
+RET a
+
+; minimum function
+
+: min
+ARG a 1
+ARG b 2
+CMP a < b
+JIT true
+JIF false
+
+: true
+RET a
+
+: false
+RET b
+
+; max function 
+
+: max
+ARG a 1
+ARG b 2
+CMP a < b
+JIT true_max
+JIF false_max
+
+: true_max
+RET b
+
+: false_max
+RET a
+
+; sign function
+
+: sign
+
+ARG a 1
+CMP a < 0
+JIT true_sign
+JIF false_sign
+
+: true_sign
+MOV a -1
+RET a
+
+: false_sign
+CMP a == 0
+JIT zero
+JIF not_zero
+
+: zero
+RET a 
+
+: not_zero
+MOV a 1
+RET a
+
+; pow function
+
+: pow
+ARG a 1
+ARG b 2
+
+MOV d 1
+MOV c 0
+
+: pow_loop
+CMP c >= b
+JIT pow_end
+JIF pow_multiply
+
+: pow_multiply
+MUL d a
+INC c
+JMP pow_loop
+
+: pow_end
+MOV a d
+RET a
+
+: math_end
