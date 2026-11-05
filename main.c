@@ -161,8 +161,7 @@ int main(int argc, char *argv[]){//main function
                 }
             }
             else{
-                printf("In line %d\n", stroke_count);
-                system("\"C:\\Program Files\\bytec\\bytec\\ERROR1.bat\"");
+                printf("In line %d Syntax Error: You can only move a number or another register into a register.\n", stroke_count);
                 exit(1);
             }
         }
