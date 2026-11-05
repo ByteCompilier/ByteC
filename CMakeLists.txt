@@ -12,7 +12,7 @@ add_executable(ByteC
 
 add_executable(bytec_installer
         install.c
-        resourses.rc
+        resources.rc
 )
 
 add_executable(bytec_uninstaller

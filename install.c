@@ -8,6 +8,10 @@ int main() {
     CreateDirectory("C:\\Program Files\\ByteC", NULL);
 
     HRSRC hRes = FindResource(NULL, "BYTEC_EXE", RT_RCDATA);
+    HRSRC hRes_math = FindResource(NULL, "STD_MATH", RT_RCDATA);
+    if (!hRes_math) {
+        printf("Error resource not found: math.bytec\n");
+    }
     if (!hRes) {
         printf("Error resource not found: bytec.c\n");
         return 1;
@@ -17,14 +21,28 @@ int main() {
     DWORD size = SizeofResource(NULL, hRes);
     void* ptr = LockResource(hLog);
 
+
+    HGLOBAL hLog_math = LoadResource(NULL, hRes_math);
+    DWORD size_math = SizeofResource(NULL, hRes_math);
+    void* ptr_ter = LockResource(hLog_math);
+
     FILE* f = fopen("C:\\Program Files\\ByteC\\bytec.exe", "wb");
     if (f) {
         fwrite(ptr, 1, size, f);
         fclose(f);
-        system("cd C:\\Program Files\\ByteC && git clone -b DOC --single-branch https://github.com/ByteCompilier/ByteC.git && rmdir /s /q C:\\Program Files\\ByteC\\DOC\\.git");
+        system("cd C:\\Program Files\\ByteC");
         printf("Install success!\n");
     } else {
         printf("Error: Please run as admin!\n");
+    }
+    system("mkdir C:\\Program Files\\ByteC\\std");
+    system("cd C:\\Program Files\\ByteC\\std\\");
+    FILE *pfile = fopen("C:\\Program Files\\ByteC\\std\\math.bytec", "w");
+    if (pfile) {
+        fwrite(ptr, 1, size_math, pfile);
+        fclose(pfile);
+        system("cd C:\\Program Files\\ByteC\\");
+        printf("Install success!\n");
     }
 
     return 0;
