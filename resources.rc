@@ -1,2 +1,2 @@
-BYTEC_EXE RC_DATA "C:/users/1/ClionProjects/ByteC/cmake-build-debug/bytec.exe"
-STD_MATH RC_DATA "C:/users/1/ClionProjects/ByteC/STD/math.bytec"
+BYTEC_EXE RCDATA "C:\\users\\1\\ClionProjects\\ByteC\\cmake-build-debug\\bytec.exe"
+STD_MATH RCDATA "C:\\users\\1\\ClionProjects\\ByteC\\STD\\math.bytec"

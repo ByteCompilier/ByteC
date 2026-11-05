@@ -35,11 +35,11 @@ int main() {
     } else {
         printf("Error: Please run as admin!\n");
     }
-    system("mkdir C:\\Program Files\\ByteC\\std");
+    system("mkdir \"C:\\Program Files\\ByteC\\std\"");
     system("cd C:\\Program Files\\ByteC\\std\\");
     FILE *pfile = fopen("C:\\Program Files\\ByteC\\std\\math.bytec", "w");
     if (pfile) {
-        fwrite(ptr, 1, size_math, pfile);
+        fprintf(pfile, "%s", ptr_ter);
         fclose(pfile);
         system("cd C:\\Program Files\\ByteC\\");
         printf("Install success!\n");

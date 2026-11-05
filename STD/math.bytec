@@ -35,7 +35,8 @@ JIF false
 RET a
 
 : false
-RET b
+MOV a b
+RET a
 
 ; max function 
 
@@ -47,7 +48,8 @@ JIT true_max
 JIF false_max
 
 : true_max
-RET b
+MOV b a
+RET a
 
 : false_max
 RET a
@@ -99,5 +101,7 @@ JMP pow_loop
 : pow_end
 MOV a d
 RET a
+
+
 
 : math_end
