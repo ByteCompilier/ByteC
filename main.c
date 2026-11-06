@@ -6,6 +6,8 @@
 #include <string.h> // include string.h library
 #include <stdint.h>
 #include <stdlib.h> //include stdint.h library
+#include <time.h>
+
 #include "preprocessor.h"
 
 
@@ -55,105 +57,105 @@ int main(int argc, char *argv[]){//main function
         sscanf(command, "%s %s %s %s",command_name, arg1, arg2, arg3);
         stroke_count++;
         if (strcmp(command_name, "MOV") == 0) {
-            if (arg1[0] == 'a') {
-                int put = atoi(arg2);
-                if (arg2[0] == 'a') {
+            if (strcmp(arg1, "a") == 0) {
+                int64_t put = atoll(arg2);
+                if (strcmp(arg2, "a") == 0) {
                     registres[0] = registres[0];
                 }
-                else if (arg2[0] == 'b') {
+                else if (strcmp(arg2, "b") == 0) {
                     registres[0] = registres[1];
                 }
-                else if (arg2[0] == 'c') {
+                else if (strcmp(arg2, "c") == 0) {
                     registres[0] = registres[2];
                 }
-                else if (arg2[0] == 'd') {
+                else if (strcmp(arg2, "d") == 0) {
                     registres[0] = registres[3];
                 }
-                else if (arg2[0] == 'e') {
+                else if (strcmp(arg2, "e") == 0) {
                     registres[0] = registres[4];
                 }
                 else {
                     registres[0] = put;
                 }
             }
-            else if (arg1[0] == 'b') {
-                int put = atoi(arg2);
-                if (arg2[0] == 'a') {
+            else if (strcmp(arg1, "b") == 0) {
+                int64_t put = atoll(arg2);
+                if (strcmp(arg2, "a") == 0) {
                     registres[1] = registres[0];
                 }
-                else if (arg2[0] == 'b') {
+                else if (strcmp(arg2, "b") == 0) {
                     registres[1] = registres[1];
                 }
-                else if (arg2[0] == 'c') {
+                else if (strcmp(arg2, "c") == 0) {
                     registres[1] = registres[2];
                 }
-                else if (arg2[0] == 'd') {
+                else if (strcmp(arg2, "d") == 0) {
                     registres[1] = registres[3];
                 }
-                else if (arg2[0] == 'e') {
+                else if (strcmp(arg2, "e") == 0) {
                     registres[1] = registres[4];
                 }
                 else {
                     registres[1] = put;
                 }
             }
-            else if (arg1[0] == 'c') {
-                int put = atoi(arg2);
-                if (arg2[0] == 'a') {
+            else if (strcmp(arg1, "c") == 0) {
+                int64_t put = atoll(arg2);
+                if (strcmp(arg2, "a") == 0) {
                     registres[2] = registres[0];
                 }
-                else if (arg2[0] == 'b') {
+                else if (strcmp(arg2, "b") == 0) {
                     registres[2] = registres[1];
                 }
-                else if (arg2[0] == 'c') {
+                else if (strcmp(arg2, "c") == 0) {
                     registres[2] = registres[2];
                 }
-                else if (arg2[0] == 'd') {
+                else if (strcmp(arg2, "d") == 0) {
                     registres[2] = registres[3];
                 }
-                else if (arg2[0] == 'e') {
+                else if (strcmp(arg2, "e") == 0) {
                     registres[2] = registres[4];
                 }
                 else {
                     registres[2] = put;
                 }
             }
-            else if (arg1[0] == 'd') {
-                int put = atoi(arg2);
-                if (arg2[0] == 'a') {
+            else if (strcmp(arg1, "d") == 0) {
+                int64_t put = atoll(arg2);
+                if (strcmp(arg2, "a") == 0) {
                     registres[3] = registres[0];
                 }
-                else if (arg2[0] == 'b') {
+                else if (strcmp(arg2, "b") == 0) {
                     registres[3] = registres[1];
                 }
-                else if (arg2[0] == 'c') {
+                else if (strcmp(arg2, "c") == 0) {
                     registres[3] = registres[2];
                 }
-                else if (arg2[0] == 'd') {
+                else if (strcmp(arg2, "d") == 0) {
                     registres[3] = registres[3];
                 }
-                else if (arg2[0] == 'e') {
+                else if (strcmp(arg2, "e") == 0) {
                     registres[3] = registres[4];
                 }
                 else {
                     registres[3] = put;
                 }
             }
-            else if (arg1[0] == 'e') {
-                int put = atoi(arg2);
-                if (arg2[0] == 'a') {
+            else if (strcmp(arg1, "e") == 0) {
+                int64_t put = atoll(arg2);
+                if (strcmp(arg2, "a") == 0) {
                     registres[4] = registres[0];
                 }
-                else if (arg2[0] == 'b') {
+                else if (strcmp(arg2, "b") == 0) {
                     registres[4] = registres[1];
                 }
-                else if (arg2[0] == 'c') {
+                else if (strcmp(arg2, "c") == 0) {
                     registres[4] = registres[2];
                 }
-                else if (arg2[0] == 'd') {
+                else if (strcmp(arg2, "d") == 0) {
                     registres[4] = registres[3];
                 }
-                else if (arg2[0] == 'e') {
+                else if (strcmp(arg2, "e") == 0) {
                     registres[4] = registres[4];
                 }
                 else {
@@ -162,8 +164,162 @@ int main(int argc, char *argv[]){//main function
             }
             else{
                 printf("In line %d Syntax Error: You can only move a number or another register into a register.\n", stroke_count);
-                exit(1);
+                _Exit(1);
             }
+        }
+        else if (strcmp(command_name, "__syscall__->SETRANDOM") == 0) {
+            if (strcmp(arg1, "default") ==0) {
+                srand(time(NULL));
+            }
+            else {
+                unsigned int put = (unsigned int)strtoul(arg1, NULL, 10);
+                srand((unsigned int)put);
+            }
+        }
+        else if (strcmp(command_name,"__syscall__->RANDOM") ==0) {
+            int64_t put_t = 0;
+            int64_t put = 0;
+            if (strcmp(arg1, "a") == 0) {
+                put = registres[0];
+                if (strcmp(arg2, "a") == 0) {
+                    put_t =registres[0];
+                }
+                else if (strcmp(arg2, "b") == 0) {
+                    put_t =registres[1];
+                }
+                else if (strcmp(arg2, "c") == 0) {
+                    put_t =registres[2];
+                }
+                else if (strcmp(arg2, "d") == 0) {
+                    put_t =registres[3];
+                }
+                else if (strcmp(arg2, "e") == 0) {
+                    put_t =registres[4];
+                }
+                else {
+                    int64_t put123456789 = atoll(arg2);
+
+                    put_t = put123456789;
+                }
+            }
+            else if (strcmp(arg1, "b") == 0) {
+                put = registres[1];
+                if (strcmp(arg2, "a") == 0) {
+                    put_t =registres[0];
+                }
+                else if (strcmp(arg2, "b") == 0) {
+                    put_t =registres[1];
+                }
+                else if (strcmp(arg2, "c") == 0) {
+                    put_t =registres[2];
+                }
+                else if (strcmp(arg2, "d") == 0) {
+                    put_t =registres[3];
+                }
+                else if (strcmp(arg2, "e") == 0) {
+                    put_t =registres[4];
+                }
+                else {
+                    int64_t put123456788 = atoll(arg2);
+
+                    put_t = put123456788;
+                }
+            }
+            else if (strcmp(arg1, "c") == 0) {
+                put = registres[2];
+                if (strcmp(arg2, "a") == 0) {
+                    put_t =registres[0];
+                }
+                else if (strcmp(arg2, "b") == 0) {
+                    put_t =registres[1];
+                }
+                else if (strcmp(arg2, "c") == 0) {
+                    put_t =registres[2];
+                }
+                else if (strcmp(arg2, "d") == 0) {
+                    put_t =registres[3];
+                }
+                else if (strcmp(arg2, "e") == 0) {
+                    put_t =registres[4];
+                }
+                else {
+                    int64_t put123456789 = atoll(arg2);
+                    put_t = put123456789;
+                }
+
+            }
+            else if (strcmp(arg1, "d") ==0) {
+                put = registres[3];
+                if (strcmp(arg2, "a") == 0) {
+                    put_t =registres[0];
+                }
+                else if (strcmp(arg2, "b") == 0) {
+                    put_t =registres[1];
+                }
+                else if (strcmp(arg2, "c") == 0) {
+                    put_t =registres[2];
+                }
+                else if (strcmp(arg2, "d") == 0) {
+                    put_t =registres[3];
+                }
+                else if (strcmp(arg2, "e") == 0) {
+                    put_t =registres[4];
+                }
+                else {
+                    int64_t put123456789 = atoll(arg2);
+                    put_t = put123456789;
+                }
+            } else if (strcmp(arg1, "e") == 0) {
+                put = registres[4];
+                if (strcmp(arg2, "a") == 0) {
+                    put_t = registres[0];
+                } else if (strcmp(arg2, "b") == 0) {
+                    put_t = registres[1];
+                } else if (strcmp(arg2, "c") == 0) {
+                    put_t = registres[2];
+                } else if (strcmp(arg2, "d") == 0) {
+                    put_t = registres[3];
+                } else if (strcmp(arg2, "e") == 0) {
+                    put_t = registres[4];
+                } else {
+                    int64_t put123456789 = atoll(arg2);
+                    put_t = put123456789;
+                }
+            }
+            else {
+                int64_t put123456789 = atoll(arg1);
+                put = put123456789;
+                if (strcmp(arg2, "a") == 0) {
+                    put_t =registres[0];
+                }
+                else if (strcmp(arg2, "b") == 0) {
+                    put_t =registres[1];
+                }
+                else if (strcmp(arg2, "c") == 0) {
+                    put_t =registres[2];
+                }
+                else if (strcmp(arg2, "d") == 0) {
+                    put_t =registres[3];
+                }
+                else if (strcmp(arg2, "e") == 0) {
+                    put_t =registres[4];
+                }
+                else {
+                    int64_t put123456789 = atoll(arg2);
+                    put_t = put123456789;
+                }
+            }
+
+            if (put <= 0) {
+                printf("In line %d ERROR: First argument must be natural number!\n", stroke_count);
+                _Exit(1);
+            }
+            if (put_t > put) {
+                printf("In line %d ERROR: Invalid random range!\n", stroke_count);
+                _Exit(1);
+            }
+            int64_t res = rand() % (put - put_t + 1) + put_t;
+            registres[0]= res;
         }
         else if (strcmp(command_name, "CMP") == 0) {
             if (strcmp(arg2, "==") == 0) {
