@@ -1,2 +1,3 @@
 BYTEC_EXE RCDATA "C:\\users\\1\\ClionProjects\\ByteC\\cmake-build-debug\\bytec.exe"
 STD_MATH RCDATA "C:\\users\\1\\ClionProjects\\ByteC\\STD\\math.bytec"
+STD_RANDOM RCDATA "C:\\users\\1\\ClionProjects\\ByteC\\STD\\random.bytec"
