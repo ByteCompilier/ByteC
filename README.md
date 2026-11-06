@@ -31,7 +31,7 @@ Since ByteC emulates an 64-bit architecture, it operates with strict hardware-li
 * `__syscall__->SETRANDOM` — SRAND but in ByteC!
 * `__syscall__->RANDOM` — RAND but in ByteC!
 > [!CAUTION] 
-> These functions are not safe and not be tested! NOT use these! Use random.bytec standart library functions!
+> Syscalls are not safe and not be tested! NOT use these! Use random.bytec standart library functions!
 
 ---
 
