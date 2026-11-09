@@ -1,0 +1,148 @@
+; Copyright (c) 2026 ByteCompilier
+; SPDX-License-Identifier: MIT
+
+; STD standart library random.bc file! Version 0.1!
+
+JMP random_end
+
+; random function
+
+: random
+ARG a 1
+ARG b 2
+__syscall__->RANDOM b a
+RET a
+
+; setrandom function
+
+: setrandom
+ARG a 1
+CMP a == -1
+JIT random_true
+JIF random_false
+
+: random_true
+__syscall__->SETRANDOM default
+MOV a 0
+RET a
+
+: random_false
+__syscall__->SETRANDOM a
+MOV a 0
+RET a
+
+; random_bool function
+
+: random_bool
+__syscall__->RANDOM 1 0
+RET a
+
+; random_sign function
+
+: random_sign
+
+: random_sign_loop
+__syscall__->RANDOM 1 -1
+CMP a == 0
+JIT loopin_true
+JIF loopin_false
+
+: loopin_true
+JMP random_sign_loop
+
+: loopin_false
+RET a
+
+; random_bit function
+
+: random_bit
+__syscall__->RANDOM 1 0
+RET a
+
+; random_digit function
+
+: random_digit
+__syscall__->RANDOM 9 0
+RET a
+
+; random_percent function
+
+: random_percent
+__syscall__->RANDOM 100 0
+RET a
+
+; random_byte function
+
+: random_byte
+__syscall__->RANDOM 255 0
+RET a
+
+; random_positive function
+
+: random_positive
+ARG a 1
+ARG b 2
+CMP a < 1
+JIT positive_check
+JIF loop_pos
+
+: positive_check
+CMP b < 1
+JIT positive_error
+
+: loop_pos
+__syscall__->RANDOM b a
+CMP a < 1
+JIT loop_pos
+RET a
+
+: positive_error
+MOV a 0
+RET a
+
+; random_negative function
+
+: random_negative
+ARG a 1
+ARG b 2
+CMP a > -1
+JIT negative_error
+
+: negative_loop
+__syscall__->RANDOM b a
+CMP a >= 0
+JIT negative_loop
+RET a
+
+: negative_error
+MOV a 0
+RET a
+
+; random_nonzero function
+
+: random_nonzero
+ARG a 1
+ARG b 2
+
+CMP a == 0
+JIT nonzero_check
+JIF nonzero_loop
+
+: nonzero_check
+CMP b == 0
+JIT nonzero_error
+
+: nonzero_loop
+__syscall__->RANDOM b a
+CMP a == 0
+JIT nonzero_again
+RET a
+
+: nonzero_again
+JMP nonzero_loop
+
+: nonzero_error
+MOV a 0
+RET a
+
+: random_end
