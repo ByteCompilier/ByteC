@@ -36,3 +36,8 @@ add_custom_command(TARGET ByteEditor POST_BUILD
 add_executable(bpm Bpm.c)
 
 target_link_libraries(bpm PRIVATE urlmon wininet pthread)
+add_dependencies(bytec_installer ByteC bpm)
+
+set_source_files_properties(resources.rc PROPERTIES
+        OBJECT_DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/ByteC.exe;${CMAKE_CURRENT_BINARY_DIR}/bpm.exe"
+)
