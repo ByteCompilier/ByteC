@@ -9,6 +9,7 @@
 #include <time.h>
 #include <stdbool.h>
 
+//#include "iniparser.h"
 #include "preprocessor.h"
 
 
@@ -25,7 +26,23 @@ int main(int argc, char *argv[]) {
     int stroke_count = 0;
     long return_stack[STACK_SIZE];
     int stack_pointer = -1;
+    /*if (argc == 2 && strcmp(argv[1], "conf")==0) {
+        bool preprocess = true;
+        char conf_file[100] = "";
+        strcpy(conf_file, argv[1]);
+        dictionary* ini = iniparser_load(conf_file);
+        int result = iniparser_getboolean(ini, "preprocess:preprocess_file", -1);
+        if (result == -1) {
+            exit(1);
+        }
+        else if (result == 1) {
+            preprocess = true;
+        }
+        else if (result == 0) {
+            preprocess = false;
+        }
 
+    }*/
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
         printf("Version alpha 6!\n");
         return 0;
@@ -52,7 +69,9 @@ int main(int argc, char *argv[]) {
         int8_t code_if = 0;
         int64_t registres[5] = {0};
         printf("\n\n");
-        FILE *pfile = fopen("prep.bc", "r");
+        char array[100] = "";
+        strcpy(array, argv[2]);
+        FILE *pfile = fopen(array, "r");
         if (pfile == NULL) {
             printf("Error opening file\n");
         }
@@ -111,6 +130,7 @@ int main(int argc, char *argv[]) {
                         }
                         printf("%lld\n", registres[i]);
                     }
+                    printf("ZS: %d", code_if);
                 }
                 printf("\n");
             } else if (strcmp(command_d, "list") == 0) {
