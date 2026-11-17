@@ -1,3 +1,7 @@
+// Copyright (c) 2026 ByteCompilier
+// SPDX-License-Identifier: MIT
+
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <urlmon.h>

@@ -5,12 +5,21 @@ set(CMAKE_C_STANDARD 11)
 
 enable_language(RC)
 
+add_compile_options(
+        $<$<CONFIG:Release>:-Os>
+        $<$<CONFIG:Release>:-DNDEBUG>
+        $<$<CONFIG:Release>:-ffunction-sections>
+        $<$<CONFIG:Release>:-fdata-sections>
+)
+
+add_link_options(
+        $<$<CONFIG:Release>:-Wl,--gc-sections>
+        $<$<CONFIG:Release>:-s>
+)
 
 add_executable(ByteC
         main.c
         preprocessor.c
-        dictionary.c
-        iniparser.c
 )
 
 add_executable(bytec_installer
