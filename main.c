@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 
     }*/
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
-        printf("Version alpha 6!\n");
+        printf("Version alpha 8!\n");
         return 0;
     }
     if (strcmp(argv[1], "--debug") == 0) {
