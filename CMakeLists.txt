@@ -33,7 +33,8 @@ add_custom_command(TARGET ByteEditor POST_BUILD
         "${CMAKE_CURRENT_SOURCE_DIR}/libterm.dll"
         "$<TARGET_FILE_DIR:ByteEditor>"
 )
-add_executable(bpm Bpm.c)
+add_executable(bpm Bpm.c dictionary.c iniparser.c
+)
 
 target_link_libraries(bpm PRIVATE urlmon wininet pthread)
 add_dependencies(bytec_installer ByteC bpm)

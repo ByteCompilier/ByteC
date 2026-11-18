@@ -54,8 +54,48 @@ Since ByteC emulates an 64-bit architecture, it operates with strict hardware-li
 
 ## 🐛 Have an Issue?
 If you find any bugs, edge cases, or memory issues, please feel free to open a **GitHub Issue** in this repository. Our code is automatically analyzed by GitHub CodeQL to ensure top-tier code quality!
-
 ## 🤝 Want to Code with Me?
 I am looking for contributors to develop ByteC together! If you love low-level programming, compiler design, and pure C, please send me an email or open an issue. I will gladly add you to our GitHub Organization as a team member!
 ## 📑 License
 Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+## 📦 ByteC Package Manager (`bpm`)
+
+**BPM** is the official lightweight package manager for ByteC. It automatically downloads, unpacks, tracks versions, and updates community libraries from the [BPM-registry](https://github.com/bytecompilier/bpm-registry).
+
+### Commands
+
+| Command | Description |
+| :--- | :--- |
+| `bpm install <pkg1> [pkg2 ...]` | Download and install one or more libraries into `.\libs\` |
+| `bpm remove <pkg1> [pkg2 ...] [-y]` | Remove installed libraries (use `-y` to skip confirmation) |
+| `bpm update` | Check all installed libraries and update outdated ones |
+| `bpm list` | Display all installed packages and their local versions |
+| `bpm help` | Show the colored CLI help menu |
+
+### Examples
+
+```cmd
+:: Install multiple libraries at once
+bpm install add std
+
+:: View installed packages and versions
+bpm list
+
+:: Update all installed libraries to their latest versions
+bpm update
+
+:: Remove libraries without confirmation prompts
+bpm remove add std -y
+```
+
+### Package Metadata Format
+
+Packages in `BPM-registry` use a clean `key=value` INI format:
+```ini
+url=https://github.com
+version=1.0.0
+author=username
+description=Short description of the ByteC library
+```
