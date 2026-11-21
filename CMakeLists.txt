@@ -7,6 +7,8 @@ enable_language(RC)
 
 
 add_executable(ByteC
+        dictionary.c
+        iniparser.c
         main.c
         preprocessor.c
 )

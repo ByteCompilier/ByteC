@@ -1,0 +1,46 @@
+; simple calc program!
+; input first number
+IN b
+; input operation type. 1 for add, 2 for sub, 3 for mul, and 4 for div!
+IN d
+; input second number
+IN c
+
+CMP d == 1
+JIT add
+CMP d == 2
+JIT sub
+CMP d == 3
+JIT mul
+CMP d == 4
+JIT div
+
+: add
+ADD b c
+PR b
+JMP end
+
+: sub
+SUB b c
+PR b
+JMP end
+
+: mul
+MUL b c
+PR b
+JMP end
+
+: div
+CMP c == 0
+JIT zero
+JIF non_zero
+
+: zero
+JMP end
+
+: non_zero
+DIV b c
+PR b
+JMP end
+
+: end

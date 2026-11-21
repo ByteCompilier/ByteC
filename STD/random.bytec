@@ -146,3 +146,9 @@ MOV a 0
 RET a
 
 : random_end
+
+
+
+
+
+

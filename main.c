@@ -9,7 +9,7 @@
 #include <time.h>
 #include <stdbool.h>
 
-//#include "iniparser.h"
+#include "iniparser.h"
 #include "preprocessor.h"
 
 
@@ -21,19 +21,26 @@
 #define STACK_SIZE 10000
 #define ARG_SIZE 50
 
+static int ignore_iniparser_errors(const char *format, ...) {
+    (void)format;
+    return 0;
+}
+
 int main(int argc, char *argv[]) {
+    iniparser_set_error_callback(ignore_iniparser_errors);
     //main function
+    bool preprocess = true;
+    bool debug = false;
     int stroke_count = 0;
     long return_stack[STACK_SIZE];
     int stack_pointer = -1;
-    /*if (argc == 2 && strcmp(argv[1], "conf")==0) {
-        bool preprocess = true;
+    const char *array_s;
+    if (argc >= 3 && strcmp(argv[1], "conf")==0) {
         char conf_file[100] = "";
-        strcpy(conf_file, argv[1]);
+        strcpy(conf_file, argv[2]);
         dictionary* ini = iniparser_load(conf_file);
         int result = iniparser_getboolean(ini, "preprocess:preprocess_file", -1);
         if (result == -1) {
-            exit(1);
         }
         else if (result == 1) {
             preprocess = true;
@@ -41,13 +48,56 @@ int main(int argc, char *argv[]) {
         else if (result == 0) {
             preprocess = false;
         }
+        int result_t = iniparser_getboolean(ini, "debug:debug", -1);
+        if (result_t == -1) {
+        }
+        else if (result_t == 1) {
+            debug = true;
+        }
+        else if (result_t == 0) {
+            debug = false;
+        }
+        const char *array = iniparser_getstring(ini, "preprocess:preprocess_filename", NULL);
+        if (array == NULL) {
+        }
+        int result_s = 0;
+        if (preprocess) { result_s = preprocess_file(array);}
+        if (result_s == 1) {
+            printf("Error");
+            return 1;
+        }
+        array_s = iniparser_getstring(ini, "library:libraries", NULL);
+        if (array_s == NULL) {
+            return 1;
+        }
+        char* dup = strdup(array_s);
+        char *buffer = strtok((char *)dup, ",");
+        char final[1024] = "";
+        char buff[1024] = "";
+        strcpy(buff, buffer);
+        snprintf(final, sizeof(final), "bpm install \"%s\"", buff);
+        system(final);
+        while (true) {
+            buffer = strtok(NULL, ",");
+            if (buffer == NULL) {
+                return 0;
+            }
+            char final_s[1024] = "";
+            char buff_s[1024] = "";
+            strcpy(buff_s, buffer);
+            snprintf(final_s, sizeof(final_s), "bpm install \"%s\"", buff_s);
+            system(final_s);
+        }
+        free(dup);
+        iniparser_freedict(ini);
 
-    }*/
+        return 0;
+    }
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
         printf("Version alpha 8!\n");
         return 0;
     }
-    if (strcmp(argv[1], "--debug") == 0) {
+    if (strcmp(argv[1], "--debug") == 0 || debug) {
         bool preprocessed = false;
         printf("ByteC Debugger v0.1\n");
         printf("\n");

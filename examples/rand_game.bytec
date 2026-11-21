@@ -1,0 +1,12 @@
+; random numbers game
+INCLUDE .\\STD\\random.bytec
+CALL setrandom -1
+CALL random 100 1
+: game
+IN b
+CMP b == a
+JIT won
+
+JMP game
+
+: won

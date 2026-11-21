@@ -438,6 +438,9 @@ int main(int argc, char *argv[]) {
         printf("  \033[90mbpm list\033[0m\n");
     }
     else if (strcmp(argv[1], "list") == 0 && argc == 2) {
+        DWORD m = 0;
+        HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+        if (GetConsoleMode(h, &m)) SetConsoleMode(h, m | 0x0004);
         dictionary* ini = iniparser_load(".\\libs\\.parsed_version");
         if (ini == NULL) {
             printf("No packages installed!\n");
@@ -463,6 +466,13 @@ int main(int argc, char *argv[]) {
         }
 
         iniparser_freedict(ini);
+        return 0;
+    }
+    else if (strcmp(argv[1], "init") == 0 && argc >= 2) {
+        system("mkdir .\\libs 2>nul");
+        system("type nul > .\\libs\\.parsed_version 2>nul");
+        system("type nul > conf.ini 2>nul");
+        printf("Successfully initialised project!\n");
         return 0;
     }
 }
