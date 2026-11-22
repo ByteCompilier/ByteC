@@ -1,4 +1,5 @@
 ; Test: STD/math.bytec min and max functions
+; @expect-output: 10,20
 INCLUDE .\\STD\\math.bytec
 CALL min 10 20
 PR a
