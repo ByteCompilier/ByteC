@@ -1,4 +1,11 @@
+; Test: equality comparison via conditional jump
+; @expect-output: 1
 MOV a 10
 MOV b 10
 CMP a == b
-PR ZS
+JIT equal
+PR 0
+JMP finish
+: equal
+PR 1
+: finish
