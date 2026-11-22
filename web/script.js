@@ -25,7 +25,7 @@ document.querySelectorAll("[data-copy]").forEach((button) => {
 const year = document.querySelector("#year");
 if (year) year.textContent = new Date().getFullYear();
 
-/* Scroll reveal, ambient pointer light, and tiny interface motion */
+
 const progress = document.createElement("div");
 progress.className = "scroll-progress";
 document.body.append(progress);
@@ -67,3 +67,25 @@ document.querySelectorAll(".feature-card,.eco-card").forEach(card => {
     card.style.setProperty("--my", (event.clientY - rect.top) + "px");
   });
 });
+
+document.querySelectorAll(".filter-btn").forEach(button=>button.addEventListener("click",()=>{
+ const filter=button.dataset.filter;
+ document.querySelectorAll(".filter-btn").forEach(item=>item.classList.toggle("active",item===button));
+ document.querySelectorAll(".example-card").forEach(card=>card.hidden=filter!=="all"&&card.dataset.category!==filter);
+}));
+const exampleSearch=document.querySelector("#example-search");
+if(exampleSearch) exampleSearch.addEventListener("input",()=>{
+ const term=exampleSearch.value.toLowerCase();
+ document.querySelectorAll(".example-card").forEach(card=>card.hidden=!card.textContent.toLowerCase().includes(term));
+});
+const editor=document.querySelector("#playground-code");
+const output=document.querySelector("#playground-output");
+const runButton=document.querySelector("#playground-run");
+const resetButton=document.querySelector("#playground-reset");
+const copyEditor=document.querySelector("#playground-copy");
+const initialCode=editor?editor.value:"";
+if(runButton&&editor&&output)runButton.addEventListener("click",()=>{
+ output.textContent="This browser playground is a syntax preview, not a ByteC VM.\n\nYour code is ready to copy into a .bytec file and run with the installed ByteC interpreter.";
+});
+if(resetButton&&editor&&output)resetButton.addEventListener("click",()=>{editor.value=initialCode;output.textContent="Editor restored to the example.";});
+if(copyEditor&&editor)copyEditor.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(editor.value);copyEditor.textContent="Copied";setTimeout(()=>copyEditor.textContent="Copy code",1200)}catch{copyEditor.textContent="Copy unavailable"}});
