@@ -1,4 +1,5 @@
 ; Test: less-than comparison
+; @expect-output: 1
 MOV a 5
 MOV b 10
 CMP a < b
