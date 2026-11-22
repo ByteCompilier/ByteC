@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d18">
+  <meta name="description" content="ByteC is a lightweight low-level programming language built around a custom 64-bit virtual processor and a C11 toolchain.">
+  <title>ByteC — Simple Core. Infinite Possibilities.</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="ByteC home"><span class="brand-mark">B<span>c</span></span><span>ByteC</span></a>
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav">
+      <a href="#about">About</a><a href="#architecture">Architecture</a><a href="#instructions">Instructions</a><a href="#ecosystem">Ecosystem</a>
+      <a class="nav-cta" href="https://github.com/ByteCompilier/ByteC" target="_blank" rel="noreferrer">View on GitHub <span>↗</span></a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> A language with its own virtual machine</div>
+        <h1>Small core.<br><span>Infinite possibilities.</span></h1>
+        <p class="hero-lead">Meet ByteC — a lightweight low-level programming language built around a custom 64-bit virtual processor. Designed to keep the core understandable while leaving room to build.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/ByteCompilier/ByteC" target="_blank" rel="noreferrer">Explore the project <span>↗</span></a>
+          <a class="button button-ghost" href="#quick-start">See the syntax <span>↓</span></a>
+        </div>
+        <div class="hero-note"><span class="dot"></span> Toolchain written in C11 · MIT License</div>
+      </div>
+      <div class="hero-visual" aria-label="Illustration of the ByteC virtual machine">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="chip">
+          <div class="chip-top"><span>BYTEC / VM</span><span class="chip-status">● READY</span></div>
+          <div class="chip-core"><span class="chip-symbol">B<span>c</span></span><span class="chip-caption">64-BIT VIRTUAL PROCESSOR</span></div>
+          <div class="registers"><span>a <b>000A</b></span><span>b <b>0000</b></span><span>c <b>0000</b></span><span>d <b>0000</b></span><span>e <b>0000</b></span></div>
+          <div class="chip-bottom"><span>5 GENERAL-PURPOSE REGISTERS</span><span>ZS · 8-BIT</span></div>
+        </div>
+        <div class="float-tag tag-left">C11 <span>CORE</span></div><div class="float-tag tag-right">CUSTOM VM <span>64-BIT</span></div>
+      </div>
+    </section>
+
+    <section class="ticker"><div class="ticker-track"><span>BUILT IN C11</span><i>✳</i><span>CUSTOM VIRTUAL MACHINE</span><i>✳</i><span>LOW-LEVEL CONTROL</span><i>✳</i><span>OPEN SOURCE</span><i>✳</i><span>BUILT IN C11</span><i>✳</i><span>CUSTOM VIRTUAL MACHINE</span><i>✳</i><span>LOW-LEVEL CONTROL</span><i>✳</i><span>OPEN SOURCE</span></div></section>
+
+    <section class="section wrap" id="about">
+      <div class="section-heading"><div><div class="eyebrow">01 / THE IDEA</div><h2>A compact foundation<br>to build on.</h2></div><p>ByteC focuses on a small instruction-oriented core and a virtual processor of its own. The project is open source, and its toolchain is implemented in portable C11.</p></div>
+      <div class="feature-grid">
+        <article class="feature-card"><div class="feature-icon">⌘</div><h3>Instruction-driven</h3><p>Work with explicit operations, registers, comparisons and jumps. Labels make control flow direct and visible.</p><span class="card-index">01</span></article>
+        <article class="feature-card"><div class="feature-icon">▦</div><h3>Custom 64-bit VM</h3><p>ByteC emulates its own 64-bit processor model with five general-purpose registers and an 8-bit condition register.</p><span class="card-index">02</span></article>
+        <article class="feature-card"><div class="feature-icon">⌁</div><h3>C11 toolchain</h3><p>The compiler, interpreter, installer and uninstaller are written in C11, keeping the implementation close to the language's low-level roots.</p><span class="card-index">03</span></article>
+      </div>
+    </section>
+
+    <section class="section architecture-section" id="architecture">
+      <div class="wrap">
+        <div class="section-heading"><div><div class="eyebrow">02 / ARCHITECTURE</div><h2>Meet the virtual<br>processor.</h2></div><p>The documented machine model uses five 64-bit general-purpose registers and an 8-bit condition register called ZS.</p></div>
+        <div class="architecture-panel">
+          <div class="arch-label">REGISTER FILE <span>64-BIT GENERAL PURPOSE</span></div>
+          <div class="register-grid"><div class="reg"><small>REGISTER 01</small><strong>a</strong><em>R0</em></div><div class="reg"><small>REGISTER 02</small><strong>b</strong><em>R1</em></div><div class="reg"><small>REGISTER 03</small><strong>c</strong><em>R2</em></div><div class="reg"><small>REGISTER 04</small><strong>d</strong><em>R3</em></div><div class="reg"><small>REGISTER 05</small><strong>e</strong><em>R4</em></div></div>
+          <div class="condition-row"><div><span class="condition-icon">ZS</span><div><strong>Condition register</strong><small>8-bit status value</small></div></div><span class="condition-value">0x00</span></div>
+          <div class="arch-foot"><span>BYTEC VIRTUAL PROCESSOR</span><span>MODEL OVERVIEW</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="instructions">
+      <div class="section-heading"><div><div class="eyebrow">03 / INSTRUCTION SET</div><h2>Readable commands.<br>Direct control.</h2></div><p>These are instructions documented by the current project README. The set may evolve as ByteC develops.</p></div>
+      <div class="instruction-layout">
+        <div class="instruction-list">
+          <div class="instruction-row"><code>MOV</code><div><strong>Move data</strong><span>Copy a value or register into a register.</span></div></div>
+          <div class="instruction-row"><code>ADD · SUB</code><div><strong>Arithmetic</strong><span>Add to or subtract from a target register.</span></div></div>
+          <div class="instruction-row"><code>MUL · DIV</code><div><strong>Multiply & divide</strong><span>Perform integer arithmetic on register values.</span></div></div>
+          <div class="instruction-row"><code>INC · DEC · NEG</code><div><strong>Change a value</strong><span>Increment, decrement or negate a register.</span></div></div>
+          <div class="instruction-row"><code>CMP</code><div><strong>Compare</strong><span>Evaluate two operands and update ZS.</span></div></div>
+          <div class="instruction-row"><code>JMP · JIT · JIF</code><div><strong>Control flow</strong><span>Jump directly or conditionally to a label.</span></div></div>
+          <div class="instruction-row"><code>CALL · ARG · RET</code><div><strong>Functions</strong><span>Call a function, access arguments and return a value.</span></div></div>
+          <div class="instruction-row"><code>INCLUDE</code><div><strong>Reuse code</strong><span>Include a ByteC library in a program.</span></div></div>
+        </div>
+        <div class="code-card" id="quick-start">
+          <div class="code-title"><span><i></i><i></i><i></i></span><b>hello.bytec</b><button class="copy-button" data-copy="MOV a 40&#10;ADD a 2&#10;PR a">Copy</button></div>
+          <pre><span class="code-muted">; A tiny ByteC example</span>
+<span class="code-op">MOV</span> a <span class="code-num">40</span>
+<span class="code-op">ADD</span> a <span class="code-num">2</span>
+<span class="code-op">PR</span> a
+
+<span class="code-muted">; Output: 42</span></pre>
+          <div class="code-foot"><span>BYTEC SYNTAX</span><span>EXAMPLE</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section ecosystem-section" id="ecosystem">
+      <div class="wrap">
+        <div class="section-heading"><div><div class="eyebrow">04 / ECOSYSTEM</div><h2>Tools and packages<br>around ByteC.</h2></div><p>Explore the source code, install the toolchain, and discover community libraries through the official BPM package registry.</p></div>
+        <div class="ecosystem-grid">
+          <a class="eco-card" href="https://github.com/ByteCompilier/ByteC" target="_blank" rel="noreferrer"><span class="eco-icon">⌘</span><span class="eco-kicker">SOURCE CODE</span><strong>ByteC on GitHub</strong><p>Browse the implementation, examples, releases and project issues.</p><span class="eco-link">Open repository ↗</span></a>
+          <a class="eco-card eco-highlight" href="https://bytecompilier.github.io/BPM-registry/" target="_blank" rel="noreferrer"><span class="eco-icon">▤</span><span class="eco-kicker">OFFICIAL PACKAGE CATALOG</span><strong>BPM Registry</strong><p>Search the ByteC package catalog and learn how to publish libraries.</p><span class="eco-link">Visit package registry ↗</span></a>
+          <a class="eco-card" href="https://github.com/ByteCompilier/BPM-registry" target="_blank" rel="noreferrer"><span class="eco-icon">⌗</span><span class="eco-kicker">REGISTRY SOURCE</span><strong>Registry on GitHub</strong><p>Read registry metadata rules and contribute packages through pull requests.</p><span class="eco-link">View registry source ↗</span></a>
+        </div>
+        <div class="terminal-card"><div class="terminal-head"><span><i></i><i></i><i></i></span><b>COMMAND PROMPT</b></div><div class="terminal-body"><p><span class="terminal-prompt">C:\&gt;</span> bytec --version</p><p class="terminal-comment">Version information</p><p><span class="terminal-prompt">C:\&gt;</span> bytec hello.bytec</p><p class="terminal-comment">Run a ByteC source file</p><p><span class="terminal-prompt">C:\&gt;</span> bpm install std</p><p class="terminal-comment">Install a package from the BPM registry</p></div></div>
+      </div>
+    </section>
+
+    <section class="closing wrap">
+      <div class="eyebrow">START EXPLORING</div><h2>Your next idea<br>could be written in ByteC.</h2><p>Explore the code, try the examples and help shape the language.</p><a class="button button-primary" href="https://github.com/ByteCompilier/ByteC" target="_blank" rel="noreferrer">Get started on GitHub <span>↗</span></a>
+    </section>
+  </main>
+
+  <footer class="footer wrap"><a class="brand" href="#top"><span class="brand-mark">B<span>c</span></span><span>ByteC</span></a><span>Simple Core. Infinite Possibilities.</span><div><a href="https://github.com/ByteCompilier/ByteC" target="_blank" rel="noreferrer">GitHub</a><a href="https://bytecompilier.github.io/BPM-registry/" target="_blank" rel="noreferrer">BPM Registry</a></div><small>© <span id="year"></span> ByteC Project · MIT License</small></footer>
+  <script src="script.js"></script>
+</body>
+</html>
