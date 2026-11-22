@@ -1,4 +1,5 @@
 ; Test: jump when CMP is false
+; @expect-output: 10
 MOV a 10
 MOV b 20
 CMP a == b
