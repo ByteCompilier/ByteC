@@ -1,4 +1,5 @@
 ; Test: unconditional jump
+; @expect-output: 10
 MOV a 10
 JMP finish
 MOV a 999
