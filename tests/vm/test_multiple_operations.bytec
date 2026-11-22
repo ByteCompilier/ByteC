@@ -1,4 +1,5 @@
 ; Test: a sequence of arithmetic operations
+; @expect-output: 590
 MOV a 100
 MOV b 20
 ADD a b
