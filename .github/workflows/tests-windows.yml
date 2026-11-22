@@ -27,7 +27,6 @@ jobs:
         shell: cmd
         run: |
           cmake --version
-          where cl
 
       - name: Configure ByteC
         run: cmake -S . -B build -A x64
