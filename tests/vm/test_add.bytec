@@ -1,3 +1,4 @@
+; @expect-output: 40
 MOV a 15
 MOV b 25
 ADD a b
