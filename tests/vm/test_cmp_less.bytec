@@ -1,7 +1,11 @@
-; Test: less-than comparison
+; Test: less-than comparison via conditional jump
 ; @expect-output: 1
 MOV a 5
 MOV b 10
 CMP a < b
-PR ZS
-; Expected output: 1 (if PR supports the ZS condition register)
+JIT less
+PR 0
+JMP finish
+: less
+PR 1
+: finish
