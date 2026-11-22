@@ -9,18 +9,18 @@ enable_language(RC)
 add_executable(ByteC
         dictionary.c
         iniparser.c
-        main.c
-        preprocessor.c
+        src/main.c
+        src/preprocessor.c
 )
 
 add_executable(bytec_installer
-        install.c
+        src/install.c
         resources.rc
 )
 
 
 add_executable(bytec_uninstaller
-        deinstall.c
+        src/deinstall.c
 )
 
 add_executable(ByteEditor
@@ -35,7 +35,7 @@ add_custom_command(TARGET ByteEditor POST_BUILD
         "${CMAKE_CURRENT_SOURCE_DIR}/libterm.dll"
         "$<TARGET_FILE_DIR:ByteEditor>"
 )
-add_executable(bpm Bpm.c dictionary.c iniparser.c
+add_executable(bpm src/Bpm.c dictionary.c iniparser.c
 )
 
 target_link_libraries(bpm PRIVATE urlmon wininet pthread)

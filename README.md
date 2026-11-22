@@ -27,6 +27,7 @@ Since ByteC emulates an 64-bit architecture, it operates with strict hardware-li
 * `RET <reg>` — Return to function call and return value of register.
 * `ARG <reg> <arg number> ` — Put argument to register.
 * `INCLUDE <lib>` — Include a library code.
+* `IN <reg>` — Input user to register
 ### Syscall
 * `__syscall__->SETRANDOM` — SRAND but in ByteC!
 * `__syscall__->RANDOM` — RAND but in ByteC!

@@ -12,7 +12,7 @@
 #include <stdarg.h>
 #include <wininet.h>
 #include <stdint.h>
-#include "iniparser.h"
+#include "../iniparser.h"
 
 static int ignore_iniparser_errors(const char *format, ...) {
     (void)format;

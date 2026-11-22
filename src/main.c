@@ -8,8 +8,8 @@
 #include <stdlib.h> //include stdint.h library
 #include <time.h>
 #include <stdbool.h>
-
-#include "iniparser.h"
+#include <ctype.h>
+#include "../iniparser.h"
 #include "preprocessor.h"
 
 
@@ -4936,7 +4936,6 @@ int main(int argc, char *argv[]) {
         printf("Preprocessor error!\n");
         return 1;
     }
-
     int64_t register_stack[STACK_SIZE][5];
     int64_t arguments[STACK_SIZE][2];
     char command[COMMAND_SIZE]; // our command buffer
@@ -4957,6 +4956,9 @@ int main(int argc, char *argv[]) {
         // input one command for testing
         sscanf(command, "%s %s %s %s", command_name, arg1, arg2, arg3);
         stroke_count++;
+        for (int i = 0; command_name[i] != '\0'; i++) {
+            command_name[i] = toupper(command_name[i]);
+        }
         if (strcmp(command_name, "MOV") == 0) {
             if (strcmp(arg1, "a") == 0) {
                 int64_t put = atoll(arg2);
@@ -5159,7 +5161,8 @@ int main(int argc, char *argv[]) {
             }
             int64_t res = rand() % (put - put_t + 1) + put_t;
             registres[0] = res;
-        } else if (strcmp(command_name, "CMP") == 0) {
+        }
+        else if (strcmp(command_name, "CMP") == 0) {
             if (strcmp(arg2, "==") == 0) {
                 if (strcmp(arg1, "a") == 0) {
                     if (strcmp(arg3, "a") == 0) {
