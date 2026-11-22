@@ -1,3 +1,4 @@
+; @expect-output: 96
 MOV a 12
 MOV b 8
 MUL a b
