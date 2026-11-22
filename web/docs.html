@@ -7,7 +7,7 @@ PR a</pre><button class="copy-button" data-copy="MOV a 40\nADD a 2\nPR a">Copy</
 <section class="doc-section reveal" id="registers"><div class="eyebrow">02 / MACHINE MODEL</div><h2>Registers</h2><p>The ByteC virtual machine uses five general-purpose registers: <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>, and <code>e</code>. The project describes these as 64-bit registers.</p><div class="page-cards"><div class="page-card"><h3>General purpose</h3><p>Use registers to store intermediate values and results.</p><div class="code-block"><pre>MOV a 10
 MOV b 20
 ADD a b
-PR a</pre></div></div><div class="page-card"><h3>Condition state</h3><p>The condition state is named ZS and is used by comparison and conditional jump instructions.</p><div class="code-block"><pre>CMP a b ==
+PR a</pre></div></div><div class="page-card"><h3>Condition state</h3><p>The condition state is named ZS and is used by comparison and conditional jump instructions.</p><div class="code-block"><pre>CMP a == b
 JIT equal_label</pre></div></div></div></section>
 <section class="doc-section reveal" id="move"><div class="eyebrow">03 / DATA MOVEMENT</div><h2>MOV — assign a value</h2><p><code>MOV</code> writes a literal or another register value into a destination register.</p><div class="code-block"><pre>MOV a 12
 MOV b a
@@ -19,22 +19,22 @@ MUL a 2
 PR a</pre><button class="copy-button" data-copy="MOV a 30\nADD a 12\nSUB a 2\nMUL a 2\nPR a">Copy</button></div><div class="page-cards"><div class="page-card"><h3>ADD / SUB</h3><p>Add or subtract the operand from the target register.</p></div><div class="page-card"><h3>MUL / DIV</h3><p>Multiply or divide a register value using the given operand.</p></div><div class="page-card"><h3>INC / DEC</h3><p>Increment or decrement the selected register.</p></div><div class="page-card"><h3>NEG</h3><p>Change a register's sign by negating its value.</p></div></div></section>
 <section class="doc-section reveal" id="compare"><div class="eyebrow">05 / CONDITIONS</div><h2>CMP and the ZS condition state</h2><p><code>CMP</code> compares operands and updates the condition state. Conditional jumps can use that state to alter program flow. Supported comparison forms should be confirmed against the current interpreter version.</p><div class="code-block"><pre>MOV a 5
 MOV b 5
-CMP a b ==
+CMP a == b
 JIT same
 MOV c 0
 JMP done
 : same
 MOV c 1
 : done
-PR c</pre><button class="copy-button" data-copy="MOV a 5\nMOV b 5\nCMP a b ==\nJIT same\nMOV c 0\nJMP done\n: same\nMOV c 1\n: done\nPR c">Copy</button></div><p>Labels are written with a colon, one space, and the label name on a separate line, such as <code>: same</code>.</p></section>
+PR c</pre><button class="copy-button" data-copy="MOV a 5\nMOV b 5\nCMP a == b\nJIT same\nMOV c 0\nJMP done\n: same\nMOV c 1\n: done\nPR c">Copy</button></div><p>Labels are written with a colon, one space, and the label name on a separate line, such as <code>: same</code>.</p></section>
 <section class="doc-section reveal" id="branches"><div class="eyebrow">06 / CONTROL FLOW</div><h2>Jump between labels</h2><p>ByteC provides unconditional and conditional jump instructions. Labels mark destinations within the source program.</p><div class="code-block"><pre>MOV a 0
 : loop
 INC a
-CMP a 3 ==
+CMP a == 3
 JIF finish
 JMP loop
 : finish
-PR a</pre><button class="copy-button" data-copy="MOV a 0\n: loop\nINC a\nCMP a 3 ==\nJIF finish\nJMP loop\n: finish\nPR a">Copy</button></div><p><code>JMP</code> is unconditional. <code>JIT</code> and <code>JIF</code> are conditional forms—check the project reference for their exact condition behavior.</p></section>
+PR a</pre><button class="copy-button" data-copy="MOV a 0\n: loop\nINC a\nCMP a == 3\nJIF finish\nJMP loop\n: finish\nPR a">Copy</button></div><p><code>JMP</code> is unconditional. <code>JIT</code> and <code>JIF</code> are conditional forms—check the project reference for their exact condition behavior.</p></section>
 <section class="doc-section reveal" id="functions"><div class="eyebrow">07 / FUNCTIONS</div><h2>CALL, ARG, RET</h2><p>ByteC includes function-call instructions. The current examples use <code>CALL</code> to reach a label, <code>ARG</code> to read function arguments, and <code>RET</code> to return a value.</p><div class="code-block"><pre>MOV a 40
 MOV b 2
 CALL add a b
