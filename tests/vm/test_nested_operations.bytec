@@ -1,4 +1,5 @@
 ; Test: nested CALL operations
+; @expect-output: 9
 CALL outer 4 5
 PR a
 JMP finish
