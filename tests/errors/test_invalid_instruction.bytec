@@ -1,3 +1,5 @@
 ; Negative test: unknown instruction
+; @expect-exit: nonzero
+; @expect-error: unknown instruction|invalid instruction|syntax error
 ; Expected behavior to verify: the VM should reject an unknown instruction.
 HELLO a b
