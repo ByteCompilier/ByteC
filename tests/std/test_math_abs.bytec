@@ -1,4 +1,5 @@
 ; Test: STD/math.bytec abs function
+; @expect-output: 15
 INCLUDE .\\STD\\math.bytec
 CALL abs -15
 PR a
