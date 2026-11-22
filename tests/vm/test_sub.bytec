@@ -1,3 +1,4 @@
+; @expect-output: 65
 MOV a 100
 MOV b 35
 SUB a b
