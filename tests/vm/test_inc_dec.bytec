@@ -1,3 +1,4 @@
+; @expect-output: 11
 MOV a 10
 INC a
 INC a
