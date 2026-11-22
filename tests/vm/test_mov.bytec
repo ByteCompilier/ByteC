@@ -1,3 +1,4 @@
+; @expect-output: 10,25,100
 MOV a 10
 MOV b 25
 MOV c 100
