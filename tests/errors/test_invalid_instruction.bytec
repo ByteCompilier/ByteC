@@ -1,5 +1,6 @@
-; Test: unknown instructions are currently ignored by the VM; execution continues
-; @expect-output: 7
+; Test: unknown instructions must produce a diagnostic and fail
+; @expect-exit: nonzero
+; @expect-error: unknown instruction
 MOV a 7
 HELLO a b
 PR a
