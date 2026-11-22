@@ -13,7 +13,7 @@
                                 Includes
  ---------------------------------------------------------------------------*/
 
-#include "dictionary.h"
+#include "../../src/dictionary/dictionary.h"
 #include <stdint.h>
 
 /*

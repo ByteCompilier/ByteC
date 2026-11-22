@@ -9,9 +9,9 @@
 #include <time.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include "../iniparser.h"
-#include "preprocessor.h"
-
+#include "../../third_party/iniparser/iniparser.h"
+#include "../preprocessor/preprocessor.h"
+#include "../parser/parser.h"
 
 #define COMMAND_SIZE 256 // our one command size
 #define COMMAND_NAME 50//our command name
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
     if (argc == 2 && strcmp(argv[1], "--version") == 0) {
-        printf("Version alpha 8!\n");
+        printf("Version alpha 10!\n");
         return 0;
     }
     if (strcmp(argv[1], "--debug") == 0 || debug) {
@@ -4954,7 +4954,7 @@ int main(int argc, char *argv[]) {
     //if file opened successfully
     while (fgets(command, COMMAND_SIZE, pfile) != NULL) {
         // input one command for testing
-        sscanf(command, "%s %s %s %s", command_name, arg1, arg2, arg3);
+        parser(command, command_name, arg1, arg2, arg3);
         stroke_count++;
         for (int i = 0; command_name[i] != '\0'; i++) {
             command_name[i] = toupper(command_name[i]);
