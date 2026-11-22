@@ -13,7 +13,9 @@ if (menuButton && nav) {
 document.querySelectorAll("[data-copy]").forEach((button) => {
   button.addEventListener("click", async () => {
     const original = button.textContent;
-    const value = button.dataset.copy || "";
+    const container = button.closest(".code-block, .example-card");
+    const code = container ? container.querySelector("pre") : null;
+    const value = code ? code.textContent.replace(/\\r\\n/g, "\\n").replace(/\\n+$/g, "") : button.dataset.copy || "";
     try {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(value);
