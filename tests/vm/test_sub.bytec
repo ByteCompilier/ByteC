@@ -1,0 +1,4 @@
+MOV a 100
+MOV b 35
+SUB a b
+PR a

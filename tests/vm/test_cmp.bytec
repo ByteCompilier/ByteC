@@ -1,0 +1,4 @@
+MOV a 10
+MOV b 10
+CMP a == b
+PR ZS

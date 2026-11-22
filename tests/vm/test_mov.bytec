@@ -1,0 +1,6 @@
+MOV a 10
+MOV b 25
+MOV c 100
+PR a
+PR b
+PR c

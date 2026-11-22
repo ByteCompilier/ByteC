@@ -1,0 +1,4 @@
+MOV a 12
+MOV b 8
+MUL a b
+PR a

@@ -1,0 +1,5 @@
+MOV a 10
+INC a
+INC a
+DEC a
+PR a

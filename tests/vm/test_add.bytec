@@ -1,0 +1,4 @@
+MOV a 15
+MOV b 25
+ADD a b
+PR a

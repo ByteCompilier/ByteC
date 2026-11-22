@@ -1,0 +1,15 @@
+MOV a 10
+MOV b 20
+MOV c 30
+MOV d 40
+MOV e 50
+
+ADD a b
+ADD c d
+ADD a e
+
+PR a
+PR b
+PR c
+PR d
+PR e

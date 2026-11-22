@@ -1,0 +1,10 @@
+MOV a 100
+MOV b 5
+DIV a b
+MOV c 12
+MUL a c
+MOV d 20
+ADD a d
+MOV e 4
+SUB a e
+PR a

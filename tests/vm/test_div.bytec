@@ -1,0 +1,4 @@
+MOV a 144
+MOV b 12
+DIV a b
+PR a
