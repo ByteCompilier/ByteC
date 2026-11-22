@@ -1,4 +1,6 @@
 ; Negative test: division by zero
+; @expect-exit: nonzero
+; @expect-error: division by zero
 ; Run separately. The VM should report a controlled error.
 ; Current implementation may terminate abnormally because integer division by zero is not safely handled.
 MOV a 100
