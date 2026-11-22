@@ -1,4 +1,6 @@
 ; Negative test: invalid destination register
+; @expect-exit: nonzero
+; @expect-error: register|syntax
 ; Expected: a syntax/register error and non-zero exit status.
 MOV z 10
 PR z
