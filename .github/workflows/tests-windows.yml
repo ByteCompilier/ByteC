@@ -1,0 +1,40 @@
+name: ByteC Windows Tests
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bytec-windows-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows-tests:
+    name: Build and test on Windows x64
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Show toolchain versions
+        shell: cmd
+        run: |
+          cmake --version
+          cl
+
+      - name: Configure ByteC
+        run: cmake -S . -B build -A x64
+
+      - name: Build ByteC executable
+        run: cmake --build build --config Release --target ByteC
+
+      - name: Run ByteC tests
+        shell: cmd
+        run: python tests\run_tests.py build\Release\ByteC.exe
