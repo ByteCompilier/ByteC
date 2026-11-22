@@ -1,3 +1,4 @@
+; @expect-output: 256
 MOV a 100
 MOV b 5
 DIV a b
