@@ -1,5 +1,5 @@
-; Test: current min/max behavior in the restored standard library
-; @expect-output: 10,10
+; Test: min() and max() return the smaller and larger values
+; @expect-output: 10,20
 INCLUDE .\\STD\\math.bytec
 CALL min 10 20
 PR a
