@@ -1,4 +1,5 @@
 ; Test: CALL and RET without meaningful arguments
+; @expect-output: 42
 CALL get_value 0 0
 PR a
 JMP finish
