@@ -1,3 +1,4 @@
+; @expect-output: -15
 MOV a 15
 NEG a
 PR a
