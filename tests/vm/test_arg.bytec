@@ -1,0 +1,13 @@
+; Test: pass two immediate arguments and read them with ARG
+CALL sum 17 25
+PR a
+JMP finish
+
+: sum
+ARG a 1
+ARG b 2
+ADD a b
+RET a
+
+: finish
+; Expected output: 42

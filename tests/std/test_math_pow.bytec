@@ -1,0 +1,5 @@
+; Test: STD/math.bytec pow function
+INCLUDE .\\STD\\math.bytec
+CALL pow 2 5
+PR a
+; Expected output: 32

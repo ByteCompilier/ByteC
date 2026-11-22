@@ -1,0 +1,10 @@
+; Test: a sequence of arithmetic operations
+MOV a 100
+MOV b 20
+ADD a b
+MOV c 5
+MUL a c
+MOV d 10
+SUB a d
+PR a
+; Expected output: 590

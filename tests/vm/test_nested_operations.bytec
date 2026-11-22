@@ -1,0 +1,19 @@
+; Test: nested CALL operations
+CALL outer 4 5
+PR a
+JMP finish
+
+: outer
+ARG a 1
+ARG b 2
+CALL inner a b
+RET a
+
+: inner
+ARG a 1
+ARG b 2
+ADD a b
+RET a
+
+: finish
+; Expected output: 9

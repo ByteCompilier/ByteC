@@ -1,0 +1,10 @@
+; Test: jump when CMP is true
+MOV a 10
+MOV b 10
+CMP a == b
+JIT finish
+MOV c 999
+
+: finish
+PR a
+; Expected output: 10

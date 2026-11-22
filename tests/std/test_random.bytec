@@ -1,0 +1,5 @@
+; Test: STD/random.bytec random function
+INCLUDE .\\STD\\random.bytec
+CALL random 100 1
+PR a
+; Expected output: a value in the requested random range (not a fixed number)

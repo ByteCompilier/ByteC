@@ -1,0 +1,8 @@
+; Test: unconditional jump
+MOV a 10
+JMP finish
+MOV a 999
+
+: finish
+PR a
+; Expected output: 10

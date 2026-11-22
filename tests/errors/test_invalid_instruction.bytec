@@ -1,0 +1,3 @@
+; Negative test: unknown instruction
+; Expected behavior to verify: the VM should reject an unknown instruction.
+HELLO a b

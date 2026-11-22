@@ -1,0 +1,11 @@
+; Test: CALL and RET without meaningful arguments
+CALL get_value 0 0
+PR a
+JMP finish
+
+: get_value
+MOV a 42
+RET a
+
+: finish
+; Expected output: 42
