@@ -57,7 +57,7 @@ if (window.matchMedia("(pointer:fine)").matches) {
     pointerGlow.style.top = event.clientY + "px";
   }, { passive: true });
 }
-const revealTargets = document.querySelectorAll(".section-heading,.feature-card,.architecture-panel,.instruction-row,.code-card,.eco-card,.terminal-card,.closing");
+const revealTargets = document.querySelectorAll(".section-heading,.feature-card,.architecture-panel,.instruction-row,.code-card,.eco-card,.terminal-card,.closing,.doc-section,.example-card,.page-card,.section");
 revealTargets.forEach((element, index) => {
   element.classList.add("reveal");
   element.style.setProperty("--i", index % 6);
@@ -81,14 +81,26 @@ document.querySelectorAll(".feature-card,.eco-card").forEach(card => {
   });
 });
 
-document.querySelectorAll(".filter-btn").forEach(button=>button.addEventListener("click",()=>{
- const filter=button.dataset.filter;
- document.querySelectorAll(".filter-btn").forEach(item=>item.classList.toggle("active",item===button));
- document.querySelectorAll(".example-card").forEach(card=>card.hidden=filter!=="all"&&card.dataset.category!==filter);
+const filterButtons = document.querySelectorAll(".filter-btn");
+const exampleCards = document.querySelectorAll(".example-card");
+const exampleSearch = document.querySelector("#example-search");
+let activeExampleFilter = "all";
+let activeExampleSearch = "";
+const applyExampleFilters = () => {
+  exampleCards.forEach(card => {
+    const matchesFilter = activeExampleFilter === "all" || card.dataset.category === activeExampleFilter;
+    const matchesSearch = card.textContent.toLowerCase().includes(activeExampleSearch);
+    card.hidden = !(matchesFilter && matchesSearch);
+  });
+};
+filterButtons.forEach(button => button.addEventListener("click", () => {
+  activeExampleFilter = button.dataset.filter || "all";
+  filterButtons.forEach(item => item.classList.toggle("active", item === button));
+  applyExampleFilters();
 }));
-const exampleSearch=document.querySelector("#example-search");
-if(exampleSearch) exampleSearch.addEventListener("input",()=>{
- const term=exampleSearch.value.toLowerCase();
- document.querySelectorAll(".example-card").forEach(card=>card.hidden=!card.textContent.toLowerCase().includes(term));
+if (exampleSearch) exampleSearch.addEventListener("input", () => {
+  activeExampleSearch = exampleSearch.value.toLowerCase().trim();
+  applyExampleFilters();
 });
+
 
