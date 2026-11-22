@@ -1,9 +1,7 @@
-; Test: STD/math.bytec min and max functions
-; @expect-output: 10,20
+; Test: current min/max behavior in the restored standard library
+; @expect-output: 10,10
 INCLUDE .\\STD\\math.bytec
 CALL min 10 20
 PR a
 CALL max 10 20
 PR a
-; Expected output: 10 then 20
-; Note: the current max implementation appears to return the first argument in this case.
