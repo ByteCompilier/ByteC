@@ -1,4 +1,100 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090d18"><meta name="description" content="ByteC programming examples for arithmetic, registers, control flow, comparisons, functions and reusable code"><title>Examples · ByteC</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"></head><body><div class="ambient ambient-one"></div><div class="ambient ambient-two"></div><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark">B<span>c</span></span><span>ByteC</span></a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button><nav class="nav"><a href="index.html">Home</a><a href="docs.html">Documentation</a><a href="examples.html">Examples</a><a class="nav-cta" href="https://github.com/ByteCompilier/ByteC" target="_blank" rel="noreferrer">GitHub <span>↗</span></a></nav></header><main class="wrap page-shell">
 <section class="page-hero"><div class="eyebrow"><span class="pulse"></span> EXAMPLE COLLECTION</div><h1>Learn by <span>building.</span></h1><p>Small, focused programs that demonstrate ByteC instructions. Search examples or filter by topic, then copy code directly into a source file.</p></section><input class="search-box" id="example-search" placeholder="Search examples or instruction names…" aria-label="Search examples"><div class="filter-bar"><button class="filter-btn active" data-filter="all">All examples</button><button class="filter-btn" data-filter="basics">Basics</button><button class="filter-btn" data-filter="math">Math</button><button class="filter-btn" data-filter="flow">Control flow</button><button class="filter-btn" data-filter="functions">Functions</button></div><div class="examples-grid">
-<article class="example-card reveal" data-category="basics"><h3>Hello, ByteC</h3><p>A simple register and print program.</p><pre>MOV a 42\nPR a</pre><div class="example-footer"><span>EXAMPLE 01</span><button class="copy-button" data-copy="MOV a 42\nPR a">Copy code</button></div></article><article class="example-card reveal" data-category="basics"><h3>Register copy</h3><p>Copy a value from one register to another.</p><pre>MOV a 7\nMOV b a\nPR b</pre><div class="example-footer"><span>EXAMPLE 02</span><button class="copy-button" data-copy="MOV a 7\nMOV b a\nPR b">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Addition</h3><p>Add a literal to the register.</p><pre>MOV a 15\nADD a 27\nPR a</pre><div class="example-footer"><span>EXAMPLE 03</span><button class="copy-button" data-copy="MOV a 15\nADD a 27\nPR a">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Subtraction</h3><p>Subtract an operand from a register.</p><pre>MOV a 100\nSUB a 35\nPR a</pre><div class="example-footer"><span>EXAMPLE 04</span><button class="copy-button" data-copy="MOV a 100\nSUB a 35\nPR a">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Multiplication</h3><p>Multiply two values using a register operand.</p><pre>MOV a 12\nMUL a 8\nPR a</pre><div class="example-footer"><span>EXAMPLE 05</span><button class="copy-button" data-copy="MOV a 12\nMUL a 8\nPR a">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Increment</h3><p>Increment a register in place.</p><pre>MOV a 10\nINC a\nPR a</pre><div class="example-footer"><span>EXAMPLE 06</span><button class="copy-button" data-copy="MOV a 10\nINC a\nPR a">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Negation</h3><p>Negate a positive value.</p><pre>MOV a 15\nNEG a\nPR a</pre><div class="example-footer"><span>EXAMPLE 07</span><button class="copy-button" data-copy="MOV a 15\nNEG a\nPR a">Copy code</button></div></article><article class="example-card reveal" data-category="flow"><h3>Compare equal</h3><p>Compare operands and branch to a label.</p><pre>MOV a 4\nMOV b 4\nCMP a == b\nJIT yes\nMOV c 0\nJMP end\n: yes\nMOV c 1\n: end\nPR c</pre><div class="example-footer"><span>EXAMPLE 08</span><button class="copy-button" data-copy="MOV a 4\nMOV b 4\nCMP a == b\nJIT yes\nMOV c 0\nJMP end\n: yes\nMOV c 1\n: end\nPR c">Copy code</button></div></article><article class="example-card reveal" data-category="flow"><h3>Label jump</h3><p>Skip an instruction using JMP.</p><pre>JMP target\nMOV a 0\n: target\nMOV a 1\nPR a</pre><div class="example-footer"><span>EXAMPLE 09</span><button class="copy-button" data-copy="JMP target\nMOV a 0\n: target\nMOV a 1\nPR a">Copy code</button></div></article><article class="example-card reveal" data-category="flow"><h3>Conditional jump</h3><p>Use a condition to select a path.</p><pre>MOV a 1\nCMP a == 1\nJIT matched\nMOV b 0\nJMP exit\n: matched\nMOV b 42\n: exit\nPR b</pre><div class="example-footer"><span>EXAMPLE 10</span><button class="copy-button" data-copy="MOV a 1\nCMP a == 1\nJIT matched\nMOV b 0\nJMP exit\n: matched\nMOV b 42\n: exit\nPR b">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Multiple operations</h3><p>Chain arithmetic operations.</p><pre>MOV a 5\nMUL a 4\nADD a 12\nSUB a 2\nPR a</pre><div class="example-footer"><span>EXAMPLE 11</span><button class="copy-button" data-copy="MOV a 5\nMUL a 4\nADD a 12\nSUB a 2\nPR a">Copy code</button></div></article><article class="example-card reveal" data-category="functions"><h3>Function call</h3><p>Call a label and return a value.</p><pre>MOV a 40\nMOV b 2\nCALL sum a b\nPR a\nJMP done\n: sum\nARG c 1\nARG d 2\nADD c d\nRET c\n: done</pre><div class="example-footer"><span>EXAMPLE 12</span><button class="copy-button" data-copy="MOV a 40\nMOV b 2\nCALL sum a b\nPR a\nJMP done\n: sum\nARG c 1\nARG d 2\nADD c d\nRET c\n: done">Copy code</button></div></article>
+<article class="example-card reveal" data-category="basics"><h3>Hello, ByteC</h3><p>A simple register and print program.</p><pre>MOV a 42
+PR a</pre><div class="example-footer"><span>EXAMPLE 01</span><button class="copy-button" data-copy="MOV a 42
+PR a">Copy code</button></div></article><article class="example-card reveal" data-category="basics"><h3>Register copy</h3><p>Copy a value from one register to another.</p><pre>MOV a 7
+MOV b a
+PR b</pre><div class="example-footer"><span>EXAMPLE 02</span><button class="copy-button" data-copy="MOV a 7
+MOV b a
+PR b">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Addition</h3><p>Add a literal to the register.</p><pre>MOV a 15
+ADD a 27
+PR a</pre><div class="example-footer"><span>EXAMPLE 03</span><button class="copy-button" data-copy="MOV a 15
+ADD a 27
+PR a">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Subtraction</h3><p>Subtract an operand from a register.</p><pre>MOV a 100
+SUB a 35
+PR a</pre><div class="example-footer"><span>EXAMPLE 04</span><button class="copy-button" data-copy="MOV a 100
+SUB a 35
+PR a">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Multiplication</h3><p>Multiply two values using a register operand.</p><pre>MOV a 12
+MUL a 8
+PR a</pre><div class="example-footer"><span>EXAMPLE 05</span><button class="copy-button" data-copy="MOV a 12
+MUL a 8
+PR a">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Increment</h3><p>Increment a register in place.</p><pre>MOV a 10
+INC a
+PR a</pre><div class="example-footer"><span>EXAMPLE 06</span><button class="copy-button" data-copy="MOV a 10
+INC a
+PR a">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Negation</h3><p>Negate a positive value.</p><pre>MOV a 15
+NEG a
+PR a</pre><div class="example-footer"><span>EXAMPLE 07</span><button class="copy-button" data-copy="MOV a 15
+NEG a
+PR a">Copy code</button></div></article><article class="example-card reveal" data-category="flow"><h3>Compare equal</h3><p>Compare operands and branch to a label.</p><pre>MOV a 4
+MOV b 4
+CMP a == b
+JIT yes
+MOV c 0
+JMP end
+: yes
+MOV c 1
+: end
+PR c</pre><div class="example-footer"><span>EXAMPLE 08</span><button class="copy-button" data-copy="MOV a 4
+MOV b 4
+CMP a == b
+JIT yes
+MOV c 0
+JMP end
+: yes
+MOV c 1
+: end
+PR c">Copy code</button></div></article><article class="example-card reveal" data-category="flow"><h3>Label jump</h3><p>Skip an instruction using JMP.</p><pre>JMP target
+MOV a 0
+: target
+MOV a 1
+PR a</pre><div class="example-footer"><span>EXAMPLE 09</span><button class="copy-button" data-copy="JMP target
+MOV a 0
+: target
+MOV a 1
+PR a">Copy code</button></div></article><article class="example-card reveal" data-category="flow"><h3>Conditional jump</h3><p>Use a condition to select a path.</p><pre>MOV a 1
+CMP a == 1
+JIT matched
+MOV b 0
+JMP exit
+: matched
+MOV b 42
+: exit
+PR b</pre><div class="example-footer"><span>EXAMPLE 10</span><button class="copy-button" data-copy="MOV a 1
+CMP a == 1
+JIT matched
+MOV b 0
+JMP exit
+: matched
+MOV b 42
+: exit
+PR b">Copy code</button></div></article><article class="example-card reveal" data-category="math"><h3>Multiple operations</h3><p>Chain arithmetic operations.</p><pre>MOV a 5
+MUL a 4
+ADD a 12
+SUB a 2
+PR a</pre><div class="example-footer"><span>EXAMPLE 11</span><button class="copy-button" data-copy="MOV a 5
+MUL a 4
+ADD a 12
+SUB a 2
+PR a">Copy code</button></div></article><article class="example-card reveal" data-category="functions"><h3>Function call</h3><p>Call a label and return a value.</p><pre>MOV a 40
+MOV b 2
+CALL sum a b
+PR a
+JMP done
+: sum
+ARG c 1
+ARG d 2
+ADD c d
+RET c
+: done</pre><div class="example-footer"><span>EXAMPLE 12</span><button class="copy-button" data-copy="MOV a 40
+MOV b 2
+CALL sum a b
+PR a
+JMP done
+: sum
+ARG c 1
+ARG d 2
+ADD c d
+RET c
+: done">Copy code</button></div></article>
 </div><p class="notice" style="margin-top:24px">These are illustrative snippets. Verify instruction behavior and calling conventions with your current ByteC build and test suite.</p></main><footer class="site-footer wrap"><span>ByteC · Simple Core. Infinite Possibilities.</span><span><a href="index.html">Home</a> · <a href="docs.html">Docs</a> · <a href="examples.html">Examples</a> · </span><span>MIT License</span></footer><script src="script.js"></script></body></html>
