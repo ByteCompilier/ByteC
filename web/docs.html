@@ -3,7 +3,9 @@
 <div class="page-grid"><aside class="side-nav"><h3>GUIDE CONTENTS</h3><a href="#overview">Overview</a><a href="#registers">Registers</a><a href="#move">MOV</a><a href="#math">Arithmetic</a><a href="#compare">CMP and ZS</a><a href="#branches">Jump instructions</a><a href="#functions">Function calls</a><a href="#io">Output</a><a href="#include">Includes</a></aside><div class="doc-content">
 <section class="doc-section reveal" id="overview"><div class="eyebrow">01 / OVERVIEW</div><h2>Programs are sequences of instructions</h2><p>ByteC uses explicit instruction lines. Operands can include register names, numeric values, or labels depending on the instruction. The syntax is intentionally compact and visible.</p><div class="code-block"><div class="code-label">A FIRST PROGRAM</div><pre>MOV a 40
 ADD a 2
-PR a</pre><button class="copy-button" data-copy="MOV a 40\nADD a 2\nPR a">Copy</button></div><p>This example places a value in register <code>a</code>, adds two, and prints the result.</p></section>
+PR a</pre><button class="copy-button" data-copy="MOV a 40
+ADD a 2
+PR a">Copy</button></div><p>This example places a value in register <code>a</code>, adds two, and prints the result.</p></section>
 <section class="doc-section reveal" id="registers"><div class="eyebrow">02 / MACHINE MODEL</div><h2>Registers</h2><p>The ByteC virtual machine uses five general-purpose registers: <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>, and <code>e</code>. The project describes these as 64-bit registers.</p><div class="page-cards"><div class="page-card"><h3>General purpose</h3><p>Use registers to store intermediate values and results.</p><div class="code-block"><pre>MOV a 10
 MOV b 20
 ADD a b
@@ -11,12 +13,18 @@ PR a</pre></div></div><div class="page-card"><h3>Condition state</h3><p>The cond
 JIT equal_label</pre></div></div></div></section>
 <section class="doc-section reveal" id="move"><div class="eyebrow">03 / DATA MOVEMENT</div><h2>MOV — assign a value</h2><p><code>MOV</code> writes a literal or another register value into a destination register.</p><div class="code-block"><pre>MOV a 12
 MOV b a
-PR b</pre><button class="copy-button" data-copy="MOV a 12\nMOV b a\nPR b">Copy</button></div></section>
+PR b</pre><button class="copy-button" data-copy="MOV a 12
+MOV b a
+PR b">Copy</button></div></section>
 <section class="doc-section reveal" id="math"><div class="eyebrow">04 / ARITHMETIC</div><h2>Modify register values</h2><p>Arithmetic instructions operate on registers with immediate values or register operands as supported by the current implementation.</p><div class="code-block"><pre>MOV a 30
 ADD a 12
 SUB a 2
 MUL a 2
-PR a</pre><button class="copy-button" data-copy="MOV a 30\nADD a 12\nSUB a 2\nMUL a 2\nPR a">Copy</button></div><div class="page-cards"><div class="page-card"><h3>ADD / SUB</h3><p>Add or subtract the operand from the target register.</p></div><div class="page-card"><h3>MUL / DIV</h3><p>Multiply or divide a register value using the given operand.</p></div><div class="page-card"><h3>INC / DEC</h3><p>Increment or decrement the selected register.</p></div><div class="page-card"><h3>NEG</h3><p>Change a register's sign by negating its value.</p></div></div></section>
+PR a</pre><button class="copy-button" data-copy="MOV a 30
+ADD a 12
+SUB a 2
+MUL a 2
+PR a">Copy</button></div><div class="page-cards"><div class="page-card"><h3>ADD / SUB</h3><p>Add or subtract the operand from the target register.</p></div><div class="page-card"><h3>MUL / DIV</h3><p>Multiply or divide a register value using the given operand.</p></div><div class="page-card"><h3>INC / DEC</h3><p>Increment or decrement the selected register.</p></div><div class="page-card"><h3>NEG</h3><p>Change a register's sign by negating its value.</p></div></div></section>
 <section class="doc-section reveal" id="compare"><div class="eyebrow">05 / CONDITIONS</div><h2>CMP and the ZS condition state</h2><p><code>CMP</code> compares operands and updates the condition state. Conditional jumps can use that state to alter program flow. Supported comparison forms should be confirmed against the current interpreter version.</p><div class="code-block"><pre>MOV a 5
 MOV b 5
 CMP a == b
@@ -26,7 +34,16 @@ JMP done
 : same
 MOV c 1
 : done
-PR c</pre><button class="copy-button" data-copy="MOV a 5\nMOV b 5\nCMP a == b\nJIT same\nMOV c 0\nJMP done\n: same\nMOV c 1\n: done\nPR c">Copy</button></div><p>Labels are written with a colon, one space, and the label name on a separate line, such as <code>: same</code>.</p></section>
+PR c</pre><button class="copy-button" data-copy="MOV a 5
+MOV b 5
+CMP a == b
+JIT same
+MOV c 0
+JMP done
+: same
+MOV c 1
+: done
+PR c">Copy</button></div><p>Labels are written with a colon, one space, and the label name on a separate line, such as <code>: same</code>.</p></section>
 <section class="doc-section reveal" id="branches"><div class="eyebrow">06 / CONTROL FLOW</div><h2>Jump between labels</h2><p>ByteC provides unconditional and conditional jump instructions. Labels mark destinations within the source program.</p><div class="code-block"><pre>MOV a 0
 : loop
 INC a
@@ -34,7 +51,14 @@ CMP a == 3
 JIF finish
 JMP loop
 : finish
-PR a</pre><button class="copy-button" data-copy="MOV a 0\n: loop\nINC a\nCMP a == 3\nJIF finish\nJMP loop\n: finish\nPR a">Copy</button></div><p><code>JMP</code> is unconditional. <code>JIT</code> and <code>JIF</code> are conditional forms—check the project reference for their exact condition behavior.</p></section>
+PR a</pre><button class="copy-button" data-copy="MOV a 0
+: loop
+INC a
+CMP a == 3
+JIF finish
+JMP loop
+: finish
+PR a">Copy</button></div><p><code>JMP</code> is unconditional. <code>JIT</code> and <code>JIF</code> are conditional forms—check the project reference for their exact condition behavior.</p></section>
 <section class="doc-section reveal" id="functions"><div class="eyebrow">07 / FUNCTIONS</div><h2>CALL, ARG, RET</h2><p>ByteC includes function-call instructions. The current examples use <code>CALL</code> to reach a label, <code>ARG</code> to read function arguments, and <code>RET</code> to return a value.</p><div class="code-block"><pre>MOV a 40
 MOV b 2
 CALL add a b
@@ -45,8 +69,19 @@ ARG c 1
 ARG d 2
 ADD c d
 RET c
-: finish</pre><button class="copy-button" data-copy="MOV a 40\nMOV b 2\nCALL add a b\nPR a\nJMP finish\n: add\nARG c 1\nARG d 2\nADD c d\nRET c\n: finish">Copy</button></div><p>Function argument and return conventions are still evolving; refer to the source and sample programs for the latest details.</p></section>
+: finish</pre><button class="copy-button" data-copy="MOV a 40
+MOV b 2
+CALL add a b
+PR a
+JMP finish
+: add
+ARG c 1
+ARG d 2
+ADD c d
+RET c
+: finish">Copy</button></div><p>Function argument and return conventions are still evolving; refer to the source and sample programs for the latest details.</p></section>
 <section class="doc-section reveal" id="io"><div class="eyebrow">08 / OUTPUT</div><h2>PR — print values</h2><p>Use <code>PR</code> to print the contents of a register.</p><div class="code-block"><pre>MOV a 2026
-PR a</pre><button class="copy-button" data-copy="MOV a 2026\nPR a">Copy</button></div></section>
+PR a</pre><button class="copy-button" data-copy="MOV a 2026
+PR a">Copy</button></div></section>
 <section class="doc-section reveal" id="include"><div class="eyebrow">09 / REUSE</div><h2>INCLUDE — reuse source</h2><p>The project supports source inclusion for reusable code and standard-library files. Check the repository's <code>STD/</code> directory for the currently provided libraries and their exact interfaces.</p><div class="code-block"><pre>INCLUDE math.bytec</pre><button class="copy-button" data-copy="INCLUDE math.bytec">Copy</button></div><div class="notice">ByteC is actively evolving. This documentation is a companion guide; the repository and its tests are the authoritative source for exact current behavior.</div></section>
 </div></div></main><footer class="site-footer wrap"><span>ByteC · Simple Core. Infinite Possibilities.</span><span><a href="index.html">Home</a> · <a href="docs.html">Docs</a> · <a href="examples.html">Examples</a> · </span><span>MIT License</span></footer><script src="script.js"></script></body></html>
