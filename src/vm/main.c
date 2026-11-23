@@ -22,7 +22,7 @@
 #define ARG_SIZE 50
 
 static int ignore_iniparser_errors(const char *format, ...) {
-    (void)format;
+    (void) format;
     return 0;
 }
 
@@ -35,33 +35,29 @@ int main(int argc, char *argv[]) {
     long return_stack[STACK_SIZE];
     int stack_pointer = -1;
     const char *array_s;
-    if (argc >= 3 && strcmp(argv[1], "conf")==0) {
+    if (argc >= 3 && strcmp(argv[1], "conf") == 0) {
         char conf_file[100] = "";
         strcpy(conf_file, argv[2]);
-        dictionary* ini = iniparser_load(conf_file);
+        dictionary *ini = iniparser_load(conf_file);
         int result = iniparser_getboolean(ini, "preprocess:preprocess_file", -1);
         if (result == -1) {
-        }
-        else if (result == 1) {
+        } else if (result == 1) {
             preprocess = true;
-        }
-        else if (result == 0) {
+        } else if (result == 0) {
             preprocess = false;
         }
         int result_t = iniparser_getboolean(ini, "debug:debug", -1);
         if (result_t == -1) {
-        }
-        else if (result_t == 1) {
+        } else if (result_t == 1) {
             debug = true;
-        }
-        else if (result_t == 0) {
+        } else if (result_t == 0) {
             debug = false;
         }
         const char *array = iniparser_getstring(ini, "preprocess:preprocess_filename", NULL);
         if (array == NULL) {
         }
         int result_s = 0;
-        if (preprocess) { result_s = preprocess_file(array);}
+        if (preprocess) { result_s = preprocess_file(array); }
         if (result_s == 1) {
             printf("Error");
             return 1;
@@ -70,8 +66,8 @@ int main(int argc, char *argv[]) {
         if (array_s == NULL) {
             return 1;
         }
-        char* dup = strdup(array_s);
-        char *buffer = strtok((char *)dup, ",");
+        char *dup = strdup(array_s);
+        char *buffer = strtok((char *) dup, ",");
         char final[1024] = "";
         char buff[1024] = "";
         strcpy(buff, buffer);
@@ -138,10 +134,10 @@ int main(int argc, char *argv[]) {
                 printf("Available commands:\n");
                 printf("  help  - Show commands\n");
                 printf("  quit  - Exit debugger\n"
-                       "  regs  - Print registers values\n"
-                       "  step  - Do one command\n"
-                       "  list  - Print programs code\n"
-                       "  next  - Not do one command but skip it\n");
+                    "  regs  - Print registers values\n"
+                    "  step  - Do one command\n"
+                    "  list  - Print programs code\n"
+                    "  next  - Not do one command but skip it\n");
                 printf("\n");
             } else if (strcmp(command_d, "regs") == 0) {
                 printf("\n");
@@ -193,15 +189,12 @@ int main(int argc, char *argv[]) {
                 }
                 fseek(pfile, 0, SEEK_SET);
                 printf("\n\n");
-            }
-            else if (strcmp(command_d, "next") ==0) {
+            } else if (strcmp(command_d, "next") == 0) {
                 printf("\n");
-                char litter[1000] ="";
+                char litter[1000] = "";
                 fgets(litter, sizeof(litter), pfile);
                 printf("\n\n");
-            }
-
-            else if (strcmp(command_d, "step") == 0) {
+            } else if (strcmp(command_d, "step") == 0) {
                 bool hello = false;
                 printf("\n");
                 if (preprocessed) {
@@ -5040,14 +5033,14 @@ int main(int argc, char *argv[]) {
                        stroke_count);
                 _Exit(1);
             }
-        } else if (strcmp(command_name, "__syscall__->SETRANDOM") == 0) {
+        } else if (strcmp(command_name, "__SYSCALL__->SETRANDOM") == 0) {
             if (strcmp(arg1, "default") == 0) {
                 srand(time(NULL));
             } else {
                 unsigned int put = (unsigned int) strtoul(arg1, NULL, 10);
                 srand((unsigned int) put);
             }
-        } else if (strcmp(command_name, "__syscall__->RANDOM") == 0) {
+        } else if (strcmp(command_name, "__SYSCALL__->RANDOM") == 0) {
             int64_t put_t = 0;
             int64_t put = 0;
             if (strcmp(arg1, "a") == 0) {
@@ -5161,8 +5154,7 @@ int main(int argc, char *argv[]) {
             }
             int64_t res = rand() % (put - put_t + 1) + put_t;
             registres[0] = res;
-        }
-        else if (strcmp(command_name, "CMP") == 0) {
+        } else if (strcmp(command_name, "CMP") == 0) {
             if (strcmp(arg2, "==") == 0) {
                 if (strcmp(arg1, "a") == 0) {
                     if (strcmp(arg3, "a") == 0) {
@@ -7110,80 +7102,204 @@ int main(int argc, char *argv[]) {
         } else if (strcmp(command_name, "DIV") == 0) {
             if (arg1[0] == 'a') {
                 if (arg2[0] == 'a') {
+                    if (registres[0] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[0] /= registres[0];
                 } else if (arg2[0] == 'b') {
+                    if (registres[1] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[0] /= registres[1];
                 } else if (arg2[0] == 'c') {
+                    if (registres[2] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[0] /= registres[2];
                 } else if (arg2[0] == 'd') {
+                    if (registres[3] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[0] /= registres[3];
                 } else if (arg2[0] == 'e') {
+                    if (registres[4] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[0] /= registres[4];
                 } else if (arg2[0] == '\0') {
                     printf("In line %d\n", stroke_count);
-                    system("\"C:\\program files\\bytec\\bytec\\ERROR3.bat\"");
                     exit(1);
                 } else {
+                    int64_t test = strtoll(arg2, NULL, 10);
+                    if (test == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     int put = atoi(arg2);
                     registres[0] /= put;
                 }
             } else if (arg1[0] == 'b') {
                 if (arg2[0] == 'a') {
+                    if (registres[0] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[1] /= registres[0];
                 } else if (arg2[0] == 'b') {
+                    if (registres[1] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[1] /= registres[1];
                 } else if (arg2[0] == 'c') {
+                    if (registres[2] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[1] /= registres[2];
                 } else if (arg2[0] == 'd') {
+                    if (registres[3] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[1] /= registres[3];
                 } else if (arg2[0] == 'e') {
+                    if (registres[4] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[1] /= registres[4];
                 } else {
+                    int64_t test = strtoll(arg2, NULL, 10);
+                    if (test == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     int put = atoi(arg2);
                     registres[1] /= put;
                 }
             } else if (arg1[0] == 'c') {
                 if (arg2[0] == 'a') {
+                    if (registres[0] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[2] /= registres[0];
                 } else if (arg2[0] == 'b') {
+                    if (registres[1] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[2] /= registres[1];
                 } else if (arg2[0] == 'c') {
+                    if (registres[2] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[2] /= registres[2];
                 } else if (arg2[0] == 'd') {
+                    if (registres[3] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[2] /= registres[3];
                 } else if (arg2[0] == 'e') {
+                    if (registres[4] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[2] /= registres[4];
                 } else {
+                    int64_t test = strtoll(arg2, NULL, 10);
+                    if (test == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     int put = atoi(arg2);
                     registres[2] /= put;
                 }
             } else if (arg1[0] == 'd') {
                 if (arg2[0] == 'a') {
+                    if (registres[0] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[3] /= registres[0];
                 } else if (arg2[0] == 'b') {
+                    if (registres[1] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[3] /= registres[1];
                 } else if (arg2[0] == 'c') {
+                    if (registres[2] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[3] /= registres[2];
                 } else if (arg2[0] == 'd') {
+                    if (registres[3] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[3] /= registres[3];
                 } else if (arg2[0] == 'e') {
+                    if (registres[4] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[3] /= registres[4];
                 } else {
+                    int64_t test = strtoll(arg2, NULL, 10);
+                    if (test == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     int put = atoi(arg2);
                     registres[3] /= put;
                 }
             } else if (arg1[0] == 'e') {
                 if (arg2[0] == 'a') {
+                    if (registres[0] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[4] /= registres[0];
                 } else if (arg2[0] == 'b') {
+                    if (registres[1] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[4] /= registres[1];
                 } else if (arg2[0] == 'c') {
+                    if (registres[2] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[4] /= registres[2];
                 } else if (arg2[0] == 'd') {
+                    if (registres[3] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[4] /= registres[3];
                 } else if (arg2[0] == 'e') {
+                    if (registres[4] == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     registres[4] /= registres[4];
                 } else {
+                    int64_t test = strtoll(arg2, NULL, 10);
+                    if (test == 0) {
+                        printf("In line %d division by zero!\n", stroke_count);
+                        exit(1);
+                    }
                     int put = atoi(arg2);
                     registres[4] /= put;
                 }
@@ -7293,10 +7409,20 @@ int main(int argc, char *argv[]) {
             } else if (strcmp(arg1, "e") == 0) {
                 int64_t put = (long long) registres[4];
                 printf("%lld\n", (long long) put);
+            } else if (strcmp(arg1, "ZS") == 0) {
+                int8_t put = (int8_t) code_if;
+                printf("%d\n", (int8_t) put);
             } else {
                 int64_t put = (long long) atoll(arg1);
                 printf("%lld\n", (long long) put);
             }
+        }
+        else if (strcmp(command_name, "\n") == 0 || strcmp(command_name, " ") == 0 || strcmp(command_name, "") == 0 || strcmp(command_name, ":") == 0) {
+
+        }
+        else {
+            printf("In line %d unknown instruction %s!", stroke_count, command_name);
+            exit(1);
         }
         arg1[0] = '\0';
         arg2[0] = '\0';

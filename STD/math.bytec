@@ -41,8 +41,8 @@ RET a
 ; max function 
 
 : max
-ARG a 1
-ARG b 2
+ARG a 2
+ARG b 1
 CMP a < b
 JIT true_max
 JIF false_max

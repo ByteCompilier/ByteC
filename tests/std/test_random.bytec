@@ -1,6 +1,6 @@
 ; Test: STD/random.bytec random function
 ; @expect-range: 1..100
 INCLUDE .\\STD\\random.bytec
-CALL random 100 1
+CALL random 1 100
 PR a
 ; Expected output: a value in the requested random range (not a fixed number)
