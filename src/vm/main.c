@@ -10,6 +10,8 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <math.h>
+#include <limits.h>
+#include <stddef.h>
 
 #include "../../third_party/iniparser/iniparser.h"
 #include "../preprocessor/preprocessor.h"
@@ -4939,13 +4941,13 @@ int main(int argc, char *argv[]) {
     char arg1[ARG1];
     char arg2[ARG2];
     char arg3[ARG3];
-    Wave wave[1000] = {};
-    Sound sound[1000] = {};
+    Wave wave[1000] = {0};
+    Sound sound[1000] = {0};
     int sound_counter = 0;
     int counter = 0;
     bool audio_mod = false;
     int8_t code_if = 0;
-    Sound sound_alias[1000];
+    Sound sound_alias[1000] = {0};
     int sound_alias_counter = 0;
     static char modules[STACK_SIZE][1000];
     short modules_size = -1;
@@ -4965,7 +4967,7 @@ int main(int argc, char *argv[]) {
             command_name[i] = toupper(command_name[i]);
         }
         if (!audio_mod) {
-            for (int i =0; i < 10000; i ++) {
+            for (int i = 0; i < 10000; i++) {
                 if (strcmp(modules[i], "audio") == 0) {
                     audio_mod = true;
                 }
@@ -6862,35 +6864,28 @@ int main(int argc, char *argv[]) {
                 printf("In line %d Audio initialization failed!\n", stroke_count);
                 return 1;
             }
-        }
-        else if (strcmp(command_name, "AUDIO_CLOSE") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_CLOSE") == 0 && audio_mod) {
             CloseAudioDevice();
 
             if (IsAudioDeviceReady()) {
                 printf("In line %d Audio device was not closed!\n", stroke_count);
                 return 1;
             }
-        }
-        else if (strcmp(command_name, "AUDIO_VOLUME") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_VOLUME") == 0 && audio_mod) {
             char *endptr;
             float volume = 0.0f;
             if (strcmp(arg1, "a") == 0) {
-                volume = (float)registres[0] / 10;
-            }
-            else if (strcmp(arg1, "b") == 0) {
-                volume = (float)registres[1] / 10;
-            }
-            else if (strcmp(arg1, "c") == 0) {
-                volume = (float)registres[2] / 10;
-            }
-            else if (strcmp(arg1, "d") == 0) {
-                volume = (float)registres[3] / 10;
-            }
-            else if (strcmp(arg1, "e") == 0) {
-                volume = (float)registres[4] / 10;
-            }
-            else {
-                volume = (float)(strtof(arg1, &endptr)) / 10;
+                volume = (float) registres[0] / 10;
+            } else if (strcmp(arg1, "b") == 0) {
+                volume = (float) registres[1] / 10;
+            } else if (strcmp(arg1, "c") == 0) {
+                volume = (float) registres[2] / 10;
+            } else if (strcmp(arg1, "d") == 0) {
+                volume = (float) registres[3] / 10;
+            } else if (strcmp(arg1, "e") == 0) {
+                volume = (float) registres[4] / 10;
+            } else {
+                volume = (float) (strtof(arg1, &endptr)) / 10;
                 if (endptr == arg1 || *endptr != '\0' || !isfinite(volume)) {
                     printf("Argument error: %s\n", arg1);
                     return 1;
@@ -6901,16 +6896,13 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
             SetMasterVolume(volume);
-        }
-        else if (strcmp(command_name, "AUDIO_READY") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_READY") == 0 && audio_mod) {
             registres[0] = IsAudioDeviceReady() ? 1 : 0;
-        }
-        else if (strcmp(command_name, "AUDIO_GET_VOLUME") == 0 && audio_mod) {
-            registres[0] = (int64_t)(GetMasterVolume() * 10.0f);
-        }
-        else if (strcmp(command_name, "AUDIO_LOAD_WAVE") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_GET_VOLUME") == 0 && audio_mod) {
+            registres[0] = (int64_t) (GetMasterVolume() * 10.0f);
+        } else if (strcmp(command_name, "AUDIO_LOAD_WAVE") == 0 && audio_mod) {
             char final[1000] = "";
-            snprintf(final, sizeof(final), "%s%s%s", arg1,arg2,arg3);
+            snprintf(final, sizeof(final), "%s%s%s", arg1, arg2, arg3);
             if (counter > 999) {
                 printf("In line %d Wave overflow!", stroke_count);
                 return 1;
@@ -6921,10 +6913,9 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
             counter++;
-        }
-        else if (strcmp(command_name, "AUDIO_LOAD_SOUND") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_LOAD_SOUND") == 0 && audio_mod) {
             char final[1000] = "";
-            snprintf(final, sizeof(final), "%s%s%s", arg1,arg2,arg3);
+            snprintf(final, sizeof(final), "%s%s%s", arg1, arg2, arg3);
             if (sound_counter > 999) {
                 printf("In line %d Sound overflow!", stroke_count);
                 return 1;
@@ -6935,11 +6926,10 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
             sound_counter++;
-        }
-        else if (strcmp(command_name, "AUDIO_LOAD_SOUND_FROM_WAVE") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_LOAD_SOUND_FROM_WAVE") == 0 && audio_mod) {
             char *endptr;
             int index = strtol(arg1, &endptr, 10);
-            if (endptr == arg1 || *endptr != '\0' || index < 0 || index > 999) {
+            if (endptr == arg1 || *endptr != '\0' || index < 0 || index > 999 || index >= counter) {
                 printf("In line %d Invalid index!", stroke_count);
                 return 1;
             }
@@ -6947,14 +6937,13 @@ int main(int argc, char *argv[]) {
                 printf("In line %d Sound overflow!", stroke_count);
                 return 1;
             }
-            sound[sound_counter]= LoadSoundFromWave(wave[index]);
+            sound[sound_counter] = LoadSoundFromWave(wave[index]);
             if (!IsSoundValid(sound[sound_counter])) {
                 printf("In line %d Sound load failed!", stroke_count);
                 return 1;
             }
             sound_counter++;
-        }
-        else if (strcmp(command_name, "AUDIO_UNLOAD_SOUND") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_UNLOAD_SOUND") == 0 && audio_mod) {
             char *endptr;
             int index = strtol(arg1, &endptr, 10);
             if (endptr == arg1 || *endptr != '\0' || index < 0 || index > 999) {
@@ -6967,13 +6956,12 @@ int main(int argc, char *argv[]) {
             }
             UnloadSound(sound[index]);
             sound[index] = (Sound){0};
-            for (int i = index; i < sound_counter -1; i++) {
-                sound[i] = sound[i+1];
+            for (int i = index; i < sound_counter - 1; i++) {
+                sound[i] = sound[i + 1];
             }
             sound_counter--;
             sound[sound_counter] = (Sound){0};
-        }
-        else if (strcmp(command_name, "AUDIO_PLAY_SOUND") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_PLAY_SOUND") == 0 && audio_mod) {
             char *endptr;
             int index = strtol(arg1, &endptr, 10);
             if (endptr == arg1 || *endptr != '\0' ||
@@ -6984,8 +6972,7 @@ int main(int argc, char *argv[]) {
             PlaySound(sound[index]);
             while (IsSoundPlaying(sound[index])) {
             }
-        }
-        else if (strcmp(command_name, "AUDIO_UNLOAD_WAVE") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_UNLOAD_WAVE") == 0 && audio_mod) {
             char *endptr;
             int index = strtol(arg1, &endptr, 10);
             if (endptr == arg1 || *endptr != '\0' || index < 0 || index > 999) {
@@ -6998,13 +6985,12 @@ int main(int argc, char *argv[]) {
             }
             UnloadWave(wave[index]);
             wave[index] = (Wave){0};
-            for (int i = index; i < counter -1; i++) {
-                wave[i] = wave[i+1];
+            for (int i = index; i < counter - 1; i++) {
+                wave[i] = wave[i + 1];
             }
             counter--;
             wave[counter] = (Wave){0};
-        }
-        else if (strcmp(command_name, "AUDIO_LOAD_SOUND_ALIAS") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_LOAD_SOUND_ALIAS") == 0 && audio_mod) {
             char *endptr;
             int index = strtol(arg1, &endptr, 10);
             if (endptr == arg1 || *endptr != '\0' || index < 0 || index > 999) {
@@ -7021,8 +7007,7 @@ int main(int argc, char *argv[]) {
             }
             sound_alias[sound_alias_counter] = LoadSoundAlias(sound[index]);
             sound_alias_counter++;
-        }
-        else if (strcmp(command_name, "AUDIO_UNLOAD_SOUND_ALIAS") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_UNLOAD_SOUND_ALIAS") == 0 && audio_mod) {
             char *endptr;
             int index = strtol(arg1, &endptr, 10);
             if (endptr == arg1 || *endptr != '\0' || index < 0 || index > 999) {
@@ -7035,13 +7020,12 @@ int main(int argc, char *argv[]) {
             }
             UnloadSoundAlias(sound_alias[index]);
             sound_alias[index] = (Sound){0};
-            for (int i = index; i < sound_alias_counter -1; i++) {
-                sound_alias[i] = sound_alias[i+1];
+            for (int i = index; i < sound_alias_counter - 1; i++) {
+                sound_alias[i] = sound_alias[i + 1];
             }
             sound_alias_counter--;
             sound_alias[sound_alias_counter] = (Sound){0};
-        }
-        else if (strcmp(command_name, "AUDIO_EXPORT_WAVE")== 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_EXPORT_WAVE") == 0 && audio_mod) {
             char *endptr;
             int index = strtol(arg1, &endptr, 10);
             if (endptr == arg1 || *endptr != '\0' || index < 0 || index > 999) {
@@ -7059,8 +7043,7 @@ int main(int argc, char *argv[]) {
                 printf("In line %d Error cannot export your wave to file!", stroke_count);
                 return 1;
             }
-        }
-        else if (strcmp(command_name, "AUDIO_EXPORT_WAVE_AS_CODE") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_EXPORT_WAVE_AS_CODE") == 0 && audio_mod) {
             char *endptr;
             int index = strtol(arg1, &endptr, 10);
             if (endptr == arg1 || *endptr != '\0' || index < 0 || index > 999) {
@@ -7078,7 +7061,146 @@ int main(int argc, char *argv[]) {
                 printf("In line %d Error cannot export your wave to file!", stroke_count);
                 return 1;
             }
+        } else if (strcmp(command_name, "AUDIO_STOP_SOUND") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= sound_counter) {
+                printf("In line %d Invalid sound index!", stroke_count);
+                return 1;
+            }
+            StopSound(sound[index]);
+        } else if (strcmp(command_name, "AUDIO_PAUSE_SOUND") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= sound_counter) {
+                printf("In line %d Invalid sound index!", stroke_count);
+                return 1;
+            }
+            PauseSound(sound[index]);
+        } else if (strcmp(command_name, "AUDIO_RESUME_SOUND") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= sound_counter) {
+                printf("In line %d Invalid sound index!", stroke_count);
+                return 1;
+            }
+            ResumeSound(sound[index]);
+        } else if (strcmp(command_name, "AUDIO_IS_SOUND_PLAYING") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= sound_counter) {
+                printf("In line %d Invalid sound index!", stroke_count);
+                return 1;
+            }
+            bool result = IsSoundPlaying(sound[index]);
+            if (result) {
+                registres[0] = 1;
+            } else {
+                registres[0] = 0;
+            }
+        } else if (strcmp(command_name, "AUDIO_IS_SOUND_VALID") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= sound_counter) {
+                printf("In line %d Invalid sound index!", stroke_count);
+                return 1;
+            }
+            bool result = IsSoundValid(sound[index]);
+            if (result) {
+                registres[0] = 1;
+            } else {
+                registres[0] = 0;
+            }
+        } else if (strcmp(command_name, "AUDIO_IS_WAVE_VALID") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= counter) {
+                printf("In line %d Invalid sound index!", stroke_count);
+                return 1;
+            }
+            bool result = IsWaveValid(wave[index]);
+            if (result) {
+                registres[0] = 1;
+            } else {
+                registres[0] = 0;
+            }
+        } else if (strcmp(command_name, "AUDIO_SET_SOUND_VOLUME") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= sound_counter) {
+                printf("In line %d Invalid sound index!", stroke_count);
+                return 1;
+            }
+            char *endptr_t;
+            float ind = strtof(arg2, &endptr_t);
+            if (endptr_t == arg2 || *endptr_t != '\0' || ind < 0.0f || ind > 1.0f || !isfinite(ind)) {
+                printf("In line %d Invalid sound volume!", stroke_count);
+                return 1;
+            }
+            SetSoundVolume(sound[index], ind);
+        } else if (strcmp(command_name, "AUDIO_SET_SOUND_PITCH") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= sound_counter) {
+                printf("In line %d Invalid sound index!", stroke_count);
+                return 1;
+            }
+            char *endptr_t;
+            float ind = strtof(arg2, &endptr_t);
+            if (endptr_t == arg2 || *endptr_t != '\0' ||
+                ind < 0.0f || !isfinite(ind)) {
+                printf("In line %d Invalid sound pitch!", stroke_count);
+                return 1;
+            }
+            SetSoundPitch(sound[index], ind);
+        } else if (strcmp(command_name, "AUDIO_SET_SOUND_PAN") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= sound_counter) {
+                printf("In line %d Invalid sound index!", stroke_count);
+                return 1;
+            }
+            char *endptr_t;
+            float ind = strtof(arg2, &endptr_t);
+            if (endptr_t == arg2 || *endptr_t != '\0' ||
+                ind < -1.0f || ind > 1.0f || !isfinite(ind)) {
+                printf("In line %d Invalid sound pan!", stroke_count);
+                return 1;
+            }
+            SetSoundPan(sound[index], ind);
         }
+        else if (strcmp(command_name, "AUDIO_WAVE_CROP") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= counter) {
+                printf("In line %d Invalid index!", stroke_count);
+                return 1;
+            }
+            char *endptr_t;
+            int ind = strtol(arg2, &endptr_t, 10);
+            if (endptr_t == arg2 || *endptr_t != '\0' || ind < 0 || ind > INT_MAX) {
+                printf("In line %d Invalid index!", stroke_count);
+                return 1;
+            }
+            char *ptr;
+            int ind_t = strtol(arg3, &ptr, 10);
+            if (ptr == arg3 || *ptr != '\0' || ind_t <= ind || ind_t > INT_MAX) {
+                printf("In line %d Invalid index!", stroke_count);
+                return 1;
+            }
+            WaveCrop(&wave[index], ind, ind_t);
+        }
+
         else if (strcmp(command_name, "ADD") == 0) {
             if (arg1[0] == 'a') {
                 if (arg2[0] == 'a') {
@@ -7237,8 +7359,7 @@ int main(int argc, char *argv[]) {
         } else if (strcmp(command_name, "MODULE") == 0) {
             modules_size++;
             strcpy(modules[modules_size], arg1);
-        }
-        else if (strcmp(command_name, "SUB") == 0) {
+        } else if (strcmp(command_name, "SUB") == 0) {
             if (arg1[0] == 'a') {
                 if (arg2[0] == 'a') {
                     registres[0] -= registres[0];
@@ -7668,11 +7789,9 @@ int main(int argc, char *argv[]) {
                 int64_t put = (long long) atoll(arg1);
                 printf("%lld\n", (long long) put);
             }
-        }
-        else if (strcmp(command_name, "\n") == 0 || strcmp(command_name, " ") == 0 || strcmp(command_name, "") == 0 || strcmp(command_name, ":") == 0) {
-
-        }
-        else {
+        } else if (strcmp(command_name, "\n") == 0 || strcmp(command_name, " ") == 0 || strcmp(command_name, "") == 0 ||
+                   strcmp(command_name, ":") == 0) {
+        } else {
             printf("In line %d unknown instruction %s!", stroke_count, command_name);
             exit(1);
         }
