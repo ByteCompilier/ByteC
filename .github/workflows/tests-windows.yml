@@ -29,21 +29,21 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Set up MinGW
+      - name: Set up MinGW-w64
         uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW64
+          update: true
           install: >-
             mingw-w64-x86_64-gcc
             mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-ninja
-            make
-          update: true
+            mingw-w64-x86_64-make
 
       - name: Show toolchain versions
         shell: msys2 {0}
         run: |
           gcc --version
+          mingw32-make --version
           cmake --version
 
       - name: Configure ByteC
