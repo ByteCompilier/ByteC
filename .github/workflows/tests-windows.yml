@@ -55,5 +55,5 @@ jobs:
         run: cmake --build build --target ByteC
 
       - name: Run ByteC tests
-        shell: msys2 {0}
-        run: python tests/run_tests.py build/ByteC.exe
+        shell: cmd
+        run: python tests\run_tests.py build\ByteC.exe
