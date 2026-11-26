@@ -6968,7 +6968,7 @@ int main(int argc, char *argv[]) {
             UnloadSound(sound[index]);
             sound[index] = (Sound){0};
             for (int i = index; i < sound_counter -1; i++) {
-                sound[i] = (Sound)sound[i+1];
+                sound[i] = sound[i+1];
             }
             sound_counter--;
             sound[sound_counter] = (Sound){0};
@@ -6999,7 +6999,7 @@ int main(int argc, char *argv[]) {
             UnloadWave(wave[index]);
             wave[index] = (Wave){0};
             for (int i = index; i < counter -1; i++) {
-                wave[i] = (Wave)wave[i+1];
+                wave[i] = wave[i+1];
             }
             counter--;
             wave[counter] = (Wave){0};
@@ -7036,7 +7036,7 @@ int main(int argc, char *argv[]) {
             UnloadSoundAlias(sound_alias[index]);
             sound_alias[index] = (Sound){0};
             for (int i = index; i < sound_alias_counter -1; i++) {
-                sound_alias[i] = (Sound)sound_alias[i+1];
+                sound_alias[i] = sound_alias[i+1];
             }
             sound_alias_counter--;
             sound_alias[sound_alias_counter] = (Sound){0};
