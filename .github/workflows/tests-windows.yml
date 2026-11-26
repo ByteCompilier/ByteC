@@ -16,9 +16,10 @@ concurrency:
 
 jobs:
   windows-tests:
-    name: Build and test on Windows x64
+    name: Build and test on Windows x64 (MinGW)
     runs-on: windows-latest
     timeout-minutes: 15
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -28,17 +29,31 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Set up MinGW
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          install: >-
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            make
+          update: true
+
       - name: Show toolchain versions
-        shell: cmd
+        shell: msys2 {0}
         run: |
+          gcc --version
           cmake --version
 
       - name: Configure ByteC
-        run: cmake -S . -B build -A x64
+        shell: msys2 {0}
+        run: cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
 
       - name: Build ByteC executable
-        run: cmake --build build --config Release --target ByteC
+        shell: msys2 {0}
+        run: cmake --build build --target ByteC
 
       - name: Run ByteC tests
-        shell: cmd
-        run: python tests\run_tests.py build\Release\ByteC.exe
+        shell: msys2 {0}
+        run: python tests/run_tests.py build/ByteC.exe
