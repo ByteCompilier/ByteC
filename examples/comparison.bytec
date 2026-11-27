@@ -1,0 +1,13 @@
+; Comparison and conditional jumps
+MOV a 25
+MOV b 25
+
+CMP a == b
+JIT equal
+PR 0
+JMP end
+
+: equal
+PR 1
+
+: end
