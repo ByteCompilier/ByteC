@@ -1,0 +1,18 @@
+; Arithmetic operations and registers
+MOV a 12
+MOV b 5
+
+ADD a b
+PR a
+
+SUB a 2
+PR a
+
+MUL a 3
+PR a
+
+DIV a 2
+PR a
+
+NEG a
+PR a
