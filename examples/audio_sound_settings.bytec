@@ -1,0 +1,11 @@
+; Sound volume, pitch and pan settings
+MODULE audio
+AUDIO_INIT
+; Place audio.wav beside the program or adjust the filename.
+AUDIO_LOAD_SOUND audio.wav
+AUDIO_SET_SOUND_VOLUME 0 0.75
+AUDIO_SET_SOUND_PITCH 0 1.25
+AUDIO_SET_SOUND_PAN 0 -0.5
+AUDIO_PLAY_SOUND 0
+AUDIO_UNLOAD_SOUND 0
+AUDIO_CLOSE
