@@ -1,0 +1,11 @@
+; Read a number and compare it against 10
+IN a
+CMP a > 10
+JIT greater
+JIF not_greater
+: greater
+PR 1
+JMP end
+: not_greater
+PR 0
+: end
