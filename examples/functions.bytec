@@ -1,0 +1,10 @@
+; Simple function with two arguments and RET
+CALL sum 18 24
+PR a
+JMP end
+: sum
+ARG a 1
+ARG b 2
+ADD a b
+RET a
+: end
