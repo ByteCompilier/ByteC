@@ -1,0 +1,9 @@
+; Audio module: device and master volume
+MODULE audio
+AUDIO_INIT
+AUDIO_READY
+PR a
+AUDIO_VOLUME 5
+AUDIO_GET_VOLUME
+PR a
+AUDIO_CLOSE
