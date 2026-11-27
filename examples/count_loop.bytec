@@ -1,0 +1,9 @@
+; Count from 1 to 10 using a loop
+MOV a 1
+: loop
+PR a
+CMP a == 10
+JIT end
+INC a
+JMP loop
+: end
