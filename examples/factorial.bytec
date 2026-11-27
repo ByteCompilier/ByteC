@@ -1,0 +1,11 @@
+; Calculate 5! (120) using multiplication loop
+MOV a 5
+MOV b 1
+: factorial_loop
+CMP a == 1
+JIT done
+MUL b a
+DEC a
+JMP factorial_loop
+: done
+PR b
