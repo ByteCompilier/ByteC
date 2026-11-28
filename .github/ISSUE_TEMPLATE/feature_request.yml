@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest an improvement or a new feature for ByteC.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea for ByteC? Describe the problem and how your proposal would help.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or motivation
+      description: What limitation or use case would this feature address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior or API you would like to see.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe any alternative solutions or workarounds.
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example
+      description: Add a small ByteC code example or workflow if it helps explain the idea.
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked that this feature has not already been requested.
+          required: true
