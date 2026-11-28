@@ -6636,7 +6636,7 @@ int main(int argc, char *argv[]) {
                         }
                     }
                 }
-            exitg:;
+                exitg:;
             }
         } else if (strcmp(command_name, "JIT") == 0) {
             if (code_if == 1) {
@@ -6665,7 +6665,7 @@ int main(int argc, char *argv[]) {
                         }
                     }
                 }
-            hug:;
+                hug:;
             }
         }
 
@@ -6697,7 +6697,7 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
-        labelh:;
+            labelh:;
         }
 
         /*            Module (functions)       */
@@ -6869,7 +6869,7 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
-        labelg:;
+            labelg:;
         } else if (strcmp(command_name, "ARG") == 0) {
             if (strcmp(arg1, "a") == 0) {
                 if (strcmp(arg2, "1") == 0) {
@@ -7285,7 +7285,7 @@ int main(int argc, char *argv[]) {
                 index < 0 || index >= counter) {
                 printf("In line %d Invalid index!", stroke_count);
                 return 1;
-                }
+            }
             char *endptr_t;
             int ind = strtol(arg2, &endptr_t, 10);
             if (endptr_t == arg2 || *endptr_t != '\0' || ind <= 0 || ind > INT_MAX) {
@@ -7305,7 +7305,8 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
             WaveFormat(&wave[index], ind, ind_t, ind_t_t);
-        } else if (strcmp(command_name, ""))
+        }
+
         /*                      Module (arithmetics operations)                        */
 
         else if (strcmp(command_name, "ADD") == 0) {
