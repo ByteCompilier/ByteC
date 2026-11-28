@@ -12,6 +12,7 @@
 #include <math.h>
 #include <limits.h>
 #include <stddef.h>
+#include <dirent.h>
 
 #include "../../third_party/iniparser/iniparser.h"
 #include "../preprocessor/preprocessor.h"
@@ -40,6 +41,7 @@ int main(int argc, char *argv[]) {
     long return_stack[STACK_SIZE];
     int stack_pointer = -1;
     const char *array_s;
+    char cwd[1024];
     if (argc >= 3 && strcmp(argv[1], "conf") == 0) {
         char conf_file[100] = "";
         strcpy(conf_file, argv[2]);
@@ -2499,8 +2501,6 @@ int main(int argc, char *argv[]) {
                             } else {
                                 printf("Register not found\n");
                             }
-                        } else if (strcmp(command_name, ";") == 0) {
-                            continue;
                         } else if (strcmp(command_name, "RET") == 0) {
                             if (stack_pointer < 0 || stack_pointer >= 10000) {
                                 printf("VM error: invalid stack_pointer: %d\n", stack_pointer);
@@ -4857,8 +4857,6 @@ int main(int argc, char *argv[]) {
                             } else {
                                 printf("Register not found\n");
                             }
-                        } else if (strcmp(command_name, ";") == 0) {
-                            continue;
                         } else if (strcmp(command_name, "RET") == 0) {
                             if (stack_pointer < 0 || stack_pointer >= 10000) {
                                 printf("VM error: invalid stack_pointer: %d\n", stack_pointer);
@@ -4941,6 +4939,7 @@ int main(int argc, char *argv[]) {
     char arg1[ARG1];
     char arg2[ARG2];
     char arg3[ARG3];
+    char arg4[ARG3];
     Wave wave[1000] = {0};
     Sound sound[1000] = {0};
     int sound_counter = 0;
@@ -4961,7 +4960,7 @@ int main(int argc, char *argv[]) {
     //if file opened successfully
     while (fgets(command, COMMAND_SIZE, pfile) != NULL) {
         // input one command for testing
-        parser(command, command_name, arg1, arg2, arg3);
+        parser(command, command_name, arg1, arg2, arg3, arg4);
         stroke_count++;
         for (int i = 0; command_name[i] != '\0'; i++) {
             command_name[i] = toupper(command_name[i]);
@@ -4973,6 +4972,9 @@ int main(int argc, char *argv[]) {
                 }
             }
         }
+
+        /*                       module (memory)                          */
+
         if (strcmp(command_name, "MOV") == 0) {
             if (strcmp(arg1, "a") == 0) {
                 int64_t put = atoll(arg2);
@@ -5054,7 +5056,11 @@ int main(int argc, char *argv[]) {
                        stroke_count);
                 _Exit(1);
             }
-        } else if (strcmp(command_name, "__SYSCALL__->SETRANDOM") == 0) {
+        }
+
+        /*                   Module (random)                     */
+
+        else if (strcmp(command_name, "__SYSCALL__->SETRANDOM") == 0) {
             if (strcmp(arg1, "default") == 0) {
                 srand(time(NULL));
             } else {
@@ -5175,7 +5181,11 @@ int main(int argc, char *argv[]) {
             }
             int64_t res = rand() % (put - put_t + 1) + put_t;
             registres[0] = res;
-        } else if (strcmp(command_name, "CMP") == 0) {
+        }
+
+        /*               Module (compare)                  */
+
+        else if (strcmp(command_name, "CMP") == 0) {
             if (strcmp(arg2, "==") == 0) {
                 if (strcmp(arg1, "a") == 0) {
                     if (strcmp(arg3, "a") == 0) {
@@ -6657,7 +6667,11 @@ int main(int argc, char *argv[]) {
                 }
             hug:;
             }
-        } else if (strcmp(command_name, "JMP") == 0) {
+        }
+
+        /*                Module (labels and jumps)         */
+
+        else if (strcmp(command_name, "JMP") == 0) {
             rewind(pfile);
             while (1) {
                 int x = '\0';
@@ -6684,7 +6698,11 @@ int main(int argc, char *argv[]) {
                 }
             }
         labelh:;
-        } else if (strcmp(command_name, "CALL") == 0) {
+        }
+
+        /*            Module (functions)       */
+
+        else if (strcmp(command_name, "CALL") == 0) {
             stack_pointer++;
             return_stack[stack_pointer] = ftell(pfile);
             if (strcmp(arg2, "a") == 0) {
@@ -6852,9 +6870,71 @@ int main(int argc, char *argv[]) {
                 }
             }
         labelg:;
+        } else if (strcmp(command_name, "ARG") == 0) {
+            if (strcmp(arg1, "a") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[0] = arguments[stack_pointer][0];
+                } else if (strcmp(arg2, "2") == 0) {
+                    registres[0] = arguments[stack_pointer][1];
+                } else {
+                    printf("In line %d ERROR please write 1 or 2!\n", stack_pointer);
+                }
+            } else if (strcmp(arg1, "b") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[1] = arguments[stack_pointer][0];
+                } else if (strcmp(arg2, "2") == 0) {
+                    registres[1] = arguments[stack_pointer][1];
+                }
+            } else if (strcmp(arg1, "c") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[2] = arguments[stack_pointer][0];
+                } else if (strcmp(arg2, "2") == 0) {
+                    registres[2] = arguments[stack_pointer][1];
+                }
+            } else if (strcmp(arg1, "d") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[3] = arguments[stack_pointer][0];
+                } else if (strcmp(arg2, "2") == 0) {
+                    registres[3] = arguments[stack_pointer][1];
+                }
+            } else if (strcmp(arg1, "e") == 0) {
+                if (strcmp(arg2, "1") == 0) {
+                    registres[4] = arguments[stack_pointer][0];
+                } else if (strcmp(arg2, "2") == 0) {
+                    registres[4] = arguments[stack_pointer][1];
+                }
+            } else {
+                printf("In line %d register not found!\n", stack_pointer);
+            }
+        } else if (strcmp(command_name, "RET") == 0) {
+            if (stack_pointer < 0 || stack_pointer >= 10000) {
+                printf("VM error: invalid stack_pointer: %d\n", stack_pointer);
+                return 1;
+            }
+            int return_register = -1;
+
+            if (strcmp(arg1, "a") == 0) return_register = 0;
+            else if (strcmp(arg1, "b") == 0) return_register = 1;
+            else if (strcmp(arg1, "c") == 0) return_register = 2;
+            else if (strcmp(arg1, "d") == 0) return_register = 3;
+            else if (strcmp(arg1, "e") == 0) return_register = 4;
+            long long value = registres[return_register];
+            for (int i = 0; i < 5; i++) {
+                registres[i] = register_stack[stack_pointer][i];
+            }
+            registres[return_register] = value;
+            fseek(pfile, return_stack[stack_pointer], SEEK_SET);
+            return_stack[stack_pointer] = 0;
+            for (int i = 0; i < 5; i++) {
+                register_stack[stack_pointer][i] = 0;
+            }
+            for (int i = 0; i < 2; i++) {
+                arguments[stack_pointer][i] = 0;
+            }
+            stack_pointer--;
         }
 
-        /*           Audio module start   v0.1       */
+        /*           Module (audio)                  */
 
         else if (strcmp(command_name, "AUDIO_INIT") == 0 && audio_mod) {
             SetTraceLogLevel(LOG_NONE);
@@ -7177,8 +7257,7 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
             SetSoundPan(sound[index], ind);
-        }
-        else if (strcmp(command_name, "AUDIO_WAVE_CROP") == 0 && audio_mod) {
+        } else if (strcmp(command_name, "AUDIO_WAVE_CROP") == 0 && audio_mod) {
             char *endptr;
             int index = strtol(arg1, &endptr, 10);
             if (endptr == arg1 || *endptr != '\0' ||
@@ -7199,7 +7278,35 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
             WaveCrop(&wave[index], ind, ind_t);
-        }
+        } else if (strcmp(command_name, "AUDIO_WAVE_FORMAT") == 0 && audio_mod) {
+            char *endptr;
+            int index = strtol(arg1, &endptr, 10);
+            if (endptr == arg1 || *endptr != '\0' ||
+                index < 0 || index >= counter) {
+                printf("In line %d Invalid index!", stroke_count);
+                return 1;
+                }
+            char *endptr_t;
+            int ind = strtol(arg2, &endptr_t, 10);
+            if (endptr_t == arg2 || *endptr_t != '\0' || ind <= 0 || ind > INT_MAX) {
+                printf("In line %d Invalid index!", stroke_count);
+                return 1;
+            }
+            char *ptr;
+            int ind_t = strtol(arg3, &ptr, 10);
+            if (ptr == arg3 || *ptr != '\0' || ind_t > INT_MAX) {
+                printf("In line %d Invalid index!", stroke_count);
+                return 1;
+            }
+            char *ptrt;
+            int ind_t_t = strtol(arg4, &ptrt, 10);
+            if (ptrt == arg4 || *ptrt != '\0' || ind_t_t > INT_MAX) {
+                printf("In line %d Invalid index!", stroke_count);
+                return 1;
+            }
+            WaveFormat(&wave[index], ind, ind_t, ind_t_t);
+        } else if (strcmp(command_name, ""))
+        /*                      Module (arithmetics operations)                        */
 
         else if (strcmp(command_name, "ADD") == 0) {
             if (arg1[0] == 'a') {
@@ -7355,10 +7462,6 @@ int main(int argc, char *argv[]) {
                     registres[4] *= put;
                 }
             }
-        } else if (strcmp(command_name, "INCLUDE") == 0) {
-        } else if (strcmp(command_name, "MODULE") == 0) {
-            modules_size++;
-            strcpy(modules[modules_size], arg1);
         } else if (strcmp(command_name, "SUB") == 0) {
             if (arg1[0] == 'a') {
                 if (arg2[0] == 'a') {
@@ -7435,42 +7538,6 @@ int main(int argc, char *argv[]) {
                     int put = atoi(arg2);
                     registres[4] -= put;
                 }
-            }
-        } else if (strcmp(command_name, "ARG") == 0) {
-            if (strcmp(arg1, "a") == 0) {
-                if (strcmp(arg2, "1") == 0) {
-                    registres[0] = arguments[stack_pointer][0];
-                } else if (strcmp(arg2, "2") == 0) {
-                    registres[0] = arguments[stack_pointer][1];
-                } else {
-                    printf("In line %d ERROR please write 1 or 2!\n", stack_pointer);
-                }
-            } else if (strcmp(arg1, "b") == 0) {
-                if (strcmp(arg2, "1") == 0) {
-                    registres[1] = arguments[stack_pointer][0];
-                } else if (strcmp(arg2, "2") == 0) {
-                    registres[1] = arguments[stack_pointer][1];
-                }
-            } else if (strcmp(arg1, "c") == 0) {
-                if (strcmp(arg2, "1") == 0) {
-                    registres[2] = arguments[stack_pointer][0];
-                } else if (strcmp(arg2, "2") == 0) {
-                    registres[2] = arguments[stack_pointer][1];
-                }
-            } else if (strcmp(arg1, "d") == 0) {
-                if (strcmp(arg2, "1") == 0) {
-                    registres[3] = arguments[stack_pointer][0];
-                } else if (strcmp(arg2, "2") == 0) {
-                    registres[3] = arguments[stack_pointer][1];
-                }
-            } else if (strcmp(arg1, "e") == 0) {
-                if (strcmp(arg2, "1") == 0) {
-                    registres[4] = arguments[stack_pointer][0];
-                } else if (strcmp(arg2, "2") == 0) {
-                    registres[4] = arguments[stack_pointer][1];
-                }
-            } else {
-                printf("In line %d register not found!\n", stack_pointer);
             }
         } else if (strcmp(command_name, "DIV") == 0) {
             if (arg1[0] == 'a') {
@@ -7722,7 +7789,11 @@ int main(int argc, char *argv[]) {
                 printf("Register not found\n");
                 exit(1);
             }
-        } else if (strcmp(command_name, "IN") == 0) {
+        }
+
+        /*           Module (I/O)           */
+
+        else if (strcmp(command_name, "IN") == 0) {
             int64_t number = 0;
             scanf("%lld", &number);
             if (strcmp(arg1, "a") == 0) {
@@ -7738,34 +7809,6 @@ int main(int argc, char *argv[]) {
             } else {
                 printf("Register not found\n");
             }
-        } else if (strcmp(command_name, ";") == 0) {
-            continue;
-        } else if (strcmp(command_name, "RET") == 0) {
-            if (stack_pointer < 0 || stack_pointer >= 10000) {
-                printf("VM error: invalid stack_pointer: %d\n", stack_pointer);
-                return 1;
-            }
-            int return_register = -1;
-
-            if (strcmp(arg1, "a") == 0) return_register = 0;
-            else if (strcmp(arg1, "b") == 0) return_register = 1;
-            else if (strcmp(arg1, "c") == 0) return_register = 2;
-            else if (strcmp(arg1, "d") == 0) return_register = 3;
-            else if (strcmp(arg1, "e") == 0) return_register = 4;
-            long long value = registres[return_register];
-            for (int i = 0; i < 5; i++) {
-                registres[i] = register_stack[stack_pointer][i];
-            }
-            registres[return_register] = value;
-            fseek(pfile, return_stack[stack_pointer], SEEK_SET);
-            return_stack[stack_pointer] = 0;
-            for (int i = 0; i < 5; i++) {
-                register_stack[stack_pointer][i] = 0;
-            }
-            for (int i = 0; i < 2; i++) {
-                arguments[stack_pointer][i] = 0;
-            }
-            stack_pointer--;
         } else if (strcmp(command_name, "PR") == 0) {
             if (strcmp(arg1, "a") == 0) {
                 int64_t put = (long long) registres[0];
@@ -7789,12 +7832,31 @@ int main(int argc, char *argv[]) {
                 int64_t put = (long long) atoll(arg1);
                 printf("%lld\n", (long long) put);
             }
-        } else if (strcmp(command_name, "\n") == 0 || strcmp(command_name, " ") == 0 || strcmp(command_name, "") == 0 ||
-                   strcmp(command_name, ":") == 0) {
-        } else {
+        }
+
+        /*         Module (Modules)         */
+
+        else if (strcmp(command_name, "MODULE") == 0) {
+            modules_size++;
+            strcpy(modules[modules_size], arg1);
+        }
+
+        /*             Ignore commands            */
+
+        else if (strcmp(command_name, "\n") == 0 || strcmp(command_name, " ") == 0 || strcmp(command_name, "") == 0 ||
+                 strcmp(command_name, ":") == 0 || strcmp(command_name, ";") == 0 || strcmp(command_name, "INCLUDE") ==
+                 0) {
+        }
+
+        /*             Unknown instructions       */
+
+        else {
             printf("In line %d unknown instruction %s!", stroke_count, command_name);
             exit(1);
         }
+
+        /*                Clearing buffers          */
+
         arg1[0] = '\0';
         arg2[0] = '\0';
         arg3[0] = '\0';
