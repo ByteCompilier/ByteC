@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ByteC website and documentation
+    url: https://bytecompilier.github.io/ByteC/
+    about: Read about ByteC before opening an issue.
