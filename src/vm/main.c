@@ -7288,19 +7288,23 @@ int main(int argc, char *argv[]) {
             }
             char *endptr_t;
             int ind = strtol(arg2, &endptr_t, 10);
-            if (endptr_t == arg2 || *endptr_t != '\0' || ind <= 0 || ind > INT_MAX) {
+            if (endptr_t == arg2 || *endptr_t != '\0' || ind <= 0 ) {
                 printf("In line %d Invalid index!", stroke_count);
                 return 1;
             }
             char *ptr;
             int ind_t = strtol(arg3, &ptr, 10);
-            if (ptr == arg3 || *ptr != '\0' || ind_t > INT_MAX) {
+            if (ptr == arg3 || *ptr != '\0' || ind_t <= 0) {
                 printf("In line %d Invalid index!", stroke_count);
+                return 1;
+            }
+            if (ind_t != 8 && ind_t != 16 && ind_t != 32) {
+                printf("In line %d Invalid sample size!", stroke_count);
                 return 1;
             }
             char *ptrt;
             int ind_t_t = strtol(arg4, &ptrt, 10);
-            if (ptrt == arg4 || *ptrt != '\0' || ind_t_t > INT_MAX) {
+            if (ptrt == arg4 || *ptrt != '\0' || ind_t_t <= 0) {
                 printf("In line %d Invalid index!", stroke_count);
                 return 1;
             }
